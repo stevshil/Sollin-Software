@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!--
+
+  schedule.xsd
+  XML Schema Definition for schedule.xml
+  v1.0.3.2
+  _____________________________________________________________________________
+
+  Specifies the valid structure for the client's schedule XML file.
+
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+<xs:element name="schedule" type="scheduleType" />
+
+<xs:complexType name="timeslotType">
+    <xs:sequence>
+        <xs:element name="playlist" type="xs:integer" minOccurs="1" maxOccurs="1" />
+        <xs:element name="start" type="xs:string" minOccurs="1" maxOccurs="1" />
+        <xs:element name="end" type="xs:string" minOccurs="1" maxOccurs="1" />
+        <xs:element name="valid_from_date" type="xs:string" minOccurs="0" maxOccurs="1" />
+        <xs:element name="valid_to_date" type="xs:string" minOccurs="0" maxOccurs="1" />
+    </xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="dayType">
+    <xs:sequence>
+        <xs:element name="timeslot" type="timeslotType" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+    <xs:attribute name="weekday" use="required">
+    <xs:simpleType>
+      <xs:restriction base="xs:string">
+        <xs:enumeration value="monday" />
+        <xs:enumeration value="tuesday" />
+        <xs:enumeration value="wednesday" />
+        <xs:enumeration value="thursday" />
+        <xs:enumeration value="friday" />
+        <xs:enumeration value="saturday" />
+        <xs:enumeration value="sunday" />
+      </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+</xs:complexType>
+
+<xs:complexType name="scheduleType">
+    <xs:sequence>
+        <xs:element name="day" type="dayType" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+</xs:complexType>
+
+</xs:schema>

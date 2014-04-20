@@ -1,0 +1,420 @@
+<tracklist>
+  <id>271</id>
+  <name>Steve QA</name>
+  <description></description>
+  <schedule>0</schedule>
+  <starttime>00:00:01</starttime>
+  <endtime>23:59:59</endtime>
+  <duration>7361774</duration>
+  <shuffle>false</shuffle>
+  <tracks>
+<track>
+  <track_id>164</track_id>
+  <author>ALTOR ESCOBAR</author>
+  <title>MI KENI</title>
+  <album>CHILLED - VOL 12</album>
+  <genre>unknow genre</genre>
+  <duration>214831</duration>
+  <filesize>5148707</filesize>
+  <md5>839aae32147e8e67490a81a82d0e9c4e</md5>
+  <fadeinstart>300</fadeinstart>
+  <fadeinduration>0</fadeinduration>
+  <fadeinhardness>6</fadeinhardness>
+  <fadeoutstart>213357</fadeoutstart>
+  <fadeoutduration>0</fadeoutduration>
+  <fadeouthardness>5</fadeouthardness>
+  <basevolume>0</basevolume>
+</track>
+<track>
+  <track_id>165</track_id>
+  <author>RALPH MYERZ</author>
+  <title>MY DARLING</title>
+  <album>CHILLED - VOL 12</album>
+  <genre>unknow genre</genre>
+  <duration>208091</duration>
+  <filesize>4986957</filesize>
+  <md5>ad2aa453c035ec5020cfd965f74c5831</md5>
+  <fadeinstart>300</fadeinstart>
+  <fadeinduration>0</fadeinduration>
+  <fadeinhardness>8</fadeinhardness>
+  <fadeoutstart>206417</fadeoutstart>
+  <fadeoutduration>0</fadeoutduration>
+  <fadeouthardness>7</fadeouthardness>
+  <basevolume>0</basevolume>
+</track>
+<track>
+  <track_id>166</track_id>
+  <author>SOEL</author>
+  <title>MY SINGING SOUL</title>
+  <album>CHILLED - VOL 12</album>
+  <genre>unknow genre</genre>
+  <duration>371435</duration>
+  <filesize>8901561</filesize>
+  <md5>3203aedde0379e44e8f02a40672444e5</md5>
+  <fadeinstart>300</fadeinstart>
+  <fadeinduration>0</fadeinduration>
+  <fadeinhardness>10</fadeinhardness>
+  <fadeoutstart>369626</fadeoutstart>
+  <fadeoutduration>0</fadeoutduration>
+  <fadeouthardness>8</fadeouthardness>
+  <basevolume>0</basevolume>
+</track>
+<track>
+  <track_id>167</track_id>
+  <author>ERIC GARDENER</author>
+  <title>NIGHTMOVE</title>
+  <album>CHILLED - VOL 12</album>
+  <genre>unknow genre</genre>
+  <duration>384235</duration>
+  <filesize>9208137</filesize>
+  <md5>e4dd92245e3d7fc293138200d39001f1</md5>
+  <fadeinstart>7300</fadeinstart>
+  <fadeinduration>0</fadeinduration>
+  <fadeinhardness>5</fadeinhardness>
+  <fadeoutstart>382324</fadeoutstart>
+  <fadeoutduration>0</fadeoutduration>
+  <fadeouthardness>7</fadeouthardness>
+  <basevolume>0</basevolume>
+</track>
+<track>
+  <track_id>168</track_id>
+  <author>CANTOMA</author>
+  <title>OUT OF TOWN</title>
+  <album>CHILLED - VOL 12</album>
+  <genre>unknow genre</genre>
+  <duration>313548</duration>
+  <filesize>7514145</filesize>
+  <md5>37190a7605f36a176f81d78d1340cb0c</md5>
+  <fadeinstart>250</fadeinstart>
+  <fadeinduration>0</fadeinduration>
+  <fadeinhardness>8</fadeinhardness>
+  <fadeoutstart>311717</fadeoutstart>
+  <fadeoutduration>0</fadeoutduration>
+  <fadeouthardness>4</fadeouthardness>
+  <basevolume>0</basevolume>
+</track>
+<track>
+  <track_id>169</track_id>
+  <author>LOVE THE SUN</author>
+  <title>RAINY DAY</title>
+  <album>CHILLED - VOL 12</album>
+  <genre>unknow genre</genre>
+  <duration>276036</duration>
+  <filesize>6615117</filesize>
+  <md5>4b05a4c968d0935e152a6fab79350a6e</md5>
+  <fadeinstart>3200</fadeinstart>
+  <fadeinduration>0</fadeinduration>
+  <fadeinhardness>3</fadeinhardness>
+  <fadeoutstart>273735</fadeoutstart>
+  <fadeoutduration>0</fadeoutduration>
+  <fadeouthardness>7</fadeouthardness>
+  <basevolume>0</basevolume>
+</track>
+<track>
+  <track_id>170</track_id>
+  <author>J.R. HAIM</author>
+  <title>SUENO DE UNA GAVIOTA</title>
+  <album>CHILLED - VOL 12</album>
+  <genre>unknow genre</genre>
+  <duration>315063</duration>
+  <filesize>7550517</filesize>
+  <md5>973a0b7084ca939778a8575b22ae163b</md5>
+  <fadeinstart>6200</fadeinstart>
+  <fadeinduration>0</fadeinduration>
+  <fadeinhardness>4</fadeinhardness>
+  <fadeoutstart>312527</fadeoutstart>
+  <fadeoutduration>0</fadeoutduration>
+  <fadeouthardness>3</fadeouthardness>
+  <basevolume>0</basevolume>
+</track>
+<track>
+  <track_id>171</track_id>
+  <author>KARMINSKY EXPERIENCE</author>
+  <title>THE SEA</title>
+  <album>CHILLED - VOL 12</album>
+  <genre>unknow genre</genre>
+  <duration>212715</duration>
+  <filesize>5097931</filesize>
+  <md5>c7c3073a6ccd2fed39dbfe89892e9d0b</md5>
+  <fadeinstart>1200</fadeinstart>
+  <fadeinduration>0</fadeinduration>
+  <fadeinhardness>5</fadeinhardness>
+  <fadeoutstart>210958</fadeoutstart>
+  <fadeoutduration>0</fadeoutduration>
+  <fadeouthardness>5</fadeouthardness>
+  <basevolume>0</basevolume>
+</track>
+<track>
+  <track_id>172</track_id>
+  <author>LEMON JEELY</author>
+  <title>THE STAUNTON LICK</title>
+  <album>CHILLED - VOL 12</album>
+  <genre>unknow genre</genre>
+  <duration>284735</duration>
+  <filesize>6823895</filesize>
+  <md5>43a99e16b978f4050931f8c9d0aebc7a</md5>
+  <fadeinstart>200</fadeinstart>
+  <fadeinduration>0</fadeinduration>
+  <fadeinhardness>7</fadeinhardness>
+  <fadeoutstart>283256</fadeoutstart>
+  <fadeoutduration>0</fadeoutduration>
+  <fadeouthardness>4</fadeouthardness>
+  <basevolume>0</basevolume>
+</track>
+<track>
+  <track_id>173</track_id>
+  <author>FREEMASONS</author>
+  <title>UNIVITED (AFTERHOURS)</title>
+  <album>CHILLED - VOL 12</album>
+  <genre>unknow genre</genre>
+  <duration>196206</duration>
+  <filesize>4702340</filesize>
+  <md5>24b38d5a251089ff3dbb2036d419a1f1</md5>
+  <fadeinstart>300</fadeinstart>
+  <fadeinduration>0</fadeinduration>
+  <fadeinhardness>7</fadeinhardness>
+  <fadeoutstart>192520</fadeoutstart>
+  <fadeoutduration>0</fadeoutduration>
+  <fadeouthardness>7</fadeouthardness>
+  <basevolume>0</basevolume>
+</track>
+<track>
+  <track_id>174</track_id>
+  <author>PACO FERNANDEZ</author>
+  <title>WHAT ARE WE LIVING</title>
+  <album>CHILLED - VOL 12</album>
+  <genre>unknow genre</genre>
+  <duration>289332</duration>
+  <filesize>6933610</filesize>
+  <md5>41820c0380c96996360f913f11615a2c</md5>
+  <fadeinstart>300</fadeinstart>
+  <fadeinduration>0</fadeinduration>
+  <fadeinhardness>7</fadeinhardness>
+  <fadeoutstart>287528</fadeoutstart>
+  <fadeoutduration>0</fadeoutduration>
+  <fadeouthardness>4</fadeouthardness>
+  <basevolume>0</basevolume>
+</track>
+<track>
+  <track_id>175</track_id>
+  <author>RIATIC SEA</author>
+  <title>ADRIATIC SEA</title>
+  <album>CHILLED - VOL 18</album>
+  <genre>unknow genre</genre>
+  <duration>371696</duration>
+  <filesize>5933595</filesize>
+  <md5>e22279af2aecc563292a6df418c3c216</md5>
+  <fadeinstart>500</fadeinstart>
+  <fadeinduration>0</fadeinduration>
+  <fadeinhardness>5</fadeinhardness>
+  <fadeoutstart>368808</fadeoutstart>
+  <fadeoutduration>0</fadeoutduration>
+  <fadeouthardness>7</fadeouthardness>
+  <basevolume>0</basevolume>
+</track>
+<track>
+  <track_id>176</track_id>
+  <author>ALOHA FROM HAWAI</author>
+  <title>LAZY SUMMER DAY</title>
+  <album>CHILLED - VOL 18</album>
+  <genre>unknow genre</genre>
+  <duration>436088</duration>
+  <filesize>6961797</filesize>
+  <md5>64039d4276192b5a11c2ecaa74415ef8</md5>
+  <fadeinstart>500</fadeinstart>
+  <fadeinduration>0</fadeinduration>
+  <fadeinhardness>5</fadeinhardness>
+  <fadeoutstart>433137</fadeoutstart>
+  <fadeoutduration>0</fadeoutduration>
+  <fadeouthardness>7</fadeouthardness>
+  <basevolume>0</basevolume>
+</track>
+<track>
+  <track_id>177</track_id>
+  <author>BENET</author>
+  <title>CONEXION</title>
+  <album>CHILLED - VOL 18</album>
+  <genre>unknow genre</genre>
+  <duration>261747</duration>
+  <filesize>4178588</filesize>
+  <md5>42830f7ef10d9cf1f430f31ddda59d8 </md5>
+  <fadeinstart>400</fadeinstart>
+  <fadeinduration>0</fadeinduration>
+  <fadeinhardness>3</fadeinhardness>
+  <fadeoutstart>259186</fadeoutstart>
+  <fadeoutduration>0</fadeoutduration>
+  <fadeouthardness>5</fadeouthardness>
+  <basevolume>0</basevolume>
+</track>
+<track>
+  <track_id>178</track_id>
+  <author>LEMONGRASS</author>
+  <title>FOR ALL SEASONS</title>
+  <album>CHILLED - VOL 18</album>
+  <genre>unknow genre</genre>
+  <duration>306390</duration>
+  <filesize>4891221</filesize>
+  <md5>b497b1bb0404c4c7dd29e2b4fa209b95</md5>
+  <fadeinstart>450</fadeinstart>
+  <fadeinduration>0</fadeinduration>
+  <fadeinhardness>6</fadeinhardness>
+  <fadeoutstart>303926</fadeoutstart>
+  <fadeoutduration>0</fadeoutduration>
+  <fadeouthardness>7</fadeouthardness>
+  <basevolume>0</basevolume>
+</track>
+<track>
+  <track_id>179</track_id>
+  <author>ATRIUM</author>
+  <title>DREAMY FIGURE</title>
+  <album>CHILLED - VOL 18</album>
+  <genre>unknow genre</genre>
+  <duration>372767</duration>
+  <filesize>5950741</filesize>
+  <md5>6509ac50573830d5cc250642f7edb32d</md5>
+  <fadeinstart>450</fadeinstart>
+  <fadeinduration>0</fadeinduration>
+  <fadeinhardness>5</fadeinhardness>
+  <fadeoutstart>369854</fadeoutstart>
+  <fadeoutduration>0</fadeoutduration>
+  <fadeouthardness>7</fadeouthardness>
+  <basevolume>0</basevolume>
+</track>
+<track>
+  <track_id>180</track_id>
+  <author>MAN BEHIND C, The</author>
+  <title>GIVE YOU ALL THE LOVE</title>
+  <album>CHILLED - VOL 18</album>
+  <genre>unknow genre</genre>
+  <duration>394266</duration>
+  <filesize>6293905</filesize>
+  <md5>d68885c572eccdfe1ad03514914c45f </md5>
+  <fadeinstart>450</fadeinstart>
+  <fadeinduration>0</fadeinduration>
+  <fadeinhardness>4</fadeinhardness>
+  <fadeoutstart>390558</fadeoutstart>
+  <fadeoutduration>0</fadeoutduration>
+  <fadeouthardness>6</fadeouthardness>
+  <basevolume>0</basevolume>
+</track>
+<track>
+  <track_id>181</track_id>
+  <author>DJ LOUNGE</author>
+  <title>NEVERENDING SUMMER LOVE</title>
+  <album>CHILLED - VOL 18</album>
+  <genre>unknow genre</genre>
+  <duration>358870</duration>
+  <filesize>5728818</filesize>
+  <md5>860ef310a1bf14f1fd71a82536b1b246</md5>
+  <fadeinstart>400</fadeinstart>
+  <fadeinduration>0</fadeinduration>
+  <fadeinhardness>5</fadeinhardness>
+  <fadeoutstart>356376</fadeoutstart>
+  <fadeoutduration>0</fadeoutduration>
+  <fadeouthardness>6</fadeouthardness>
+  <basevolume>0</basevolume>
+</track>
+<track>
+  <track_id>182</track_id>
+  <author>JOHANNES HUPPERTZ</author>
+  <title>ADORE</title>
+  <album>CHILLED - VOL 18</album>
+  <genre>unknow genre</genre>
+  <duration>210521</duration>
+  <filesize>3360651</filesize>
+  <md5>d177cb137254e16f888610c2e31fe8b3</md5>
+  <fadeinstart>400</fadeinstart>
+  <fadeinduration>0</fadeinduration>
+  <fadeinhardness>10</fadeinhardness>
+  <fadeoutstart>208565</fadeoutstart>
+  <fadeoutduration>0</fadeoutduration>
+  <fadeouthardness>7</fadeouthardness>
+  <basevolume>0</basevolume>
+</track>
+<track>
+  <track_id>183</track_id>
+  <author>MERGE OF EQUALS</author>
+  <title>BEAUTIFUL NOTHING</title>
+  <album>CHILLED - VOL 18</album>
+  <genre>unknow genre</genre>
+  <duration>294713</duration>
+  <filesize>4704819</filesize>
+  <md5>3fa7950fe9a0c4bdb99f0bf07f78ad22</md5>
+  <fadeinstart>500</fadeinstart>
+  <fadeinduration>0</fadeinduration>
+  <fadeinhardness>8</fadeinhardness>
+  <fadeoutstart>292476</fadeoutstart>
+  <fadeoutduration>0</fadeoutduration>
+  <fadeouthardness>7</fadeouthardness>
+  <basevolume>0</basevolume>
+</track>
+<track>
+  <track_id>184</track_id>
+  <author>NIGHTMARES ON WAX</author>
+  <title>CALLING</title>
+  <album>CHILLED - VOL 18</album>
+  <genre>unknow genre</genre>
+  <duration>456333</duration>
+  <filesize>7284873</filesize>
+  <md5>85bcd6130787650ac3d9cbb540c9fa87</md5>
+  <fadeinstart>500</fadeinstart>
+  <fadeinduration>0</fadeinduration>
+  <fadeinhardness>5</fadeinhardness>
+  <fadeoutstart>453200</fadeoutstart>
+  <fadeoutduration>0</fadeoutduration>
+  <fadeouthardness>5</fadeouthardness>
+  <basevolume>0</basevolume>
+</track>
+<track>
+  <track_id>185</track_id>
+  <author>MATISSE</author>
+  <title>LONG WAY HOME</title>
+  <album>CHILLED - VOL 18</album>
+  <genre>unknow genre</genre>
+  <duration>239438</duration>
+  <filesize>3822495</filesize>
+  <md5>8ff291207451d6914f89d3cce140827f</md5>
+  <fadeinstart>26320</fadeinstart>
+  <fadeinduration>0</fadeinduration>
+  <fadeinhardness>8</fadeinhardness>
+  <fadeoutstart>236930</fadeoutstart>
+  <fadeoutduration>0</fadeoutduration>
+  <fadeouthardness>7</fadeouthardness>
+  <basevolume>0</basevolume>
+</track>
+<track>
+  <track_id>186</track_id>
+  <author>ATRIUM</author>
+  <title>PRAISE FOR THE BEACH</title>
+  <album>CHILLED - VOL 18</album>
+  <genre>unknow genre</genre>
+  <duration>396042</duration>
+  <filesize>6322315</filesize>
+  <md5>df5675581c6663041f038322c12830f1</md5>
+  <fadeinstart>2380</fadeinstart>
+  <fadeinduration>0</fadeinduration>
+  <fadeinhardness>5</fadeinhardness>
+  <fadeoutstart>392607</fadeoutstart>
+  <fadeoutduration>0</fadeoutduration>
+  <fadeouthardness>6</fadeouthardness>
+  <basevolume>0</basevolume>
+</track>
+<track>
+  <track_id>187</track_id>
+  <author>HARRY WALLANCE TRIO</author>
+  <title>BILL'S BEACH</title>
+  <album>CHILLED - VOL 18</album>
+  <genre>unknow genre</genre>
+  <duration>196676</duration>
+  <filesize>3139979</filesize>
+  <md5>4df559f112a074ba09bb487da08c52e5</md5>
+  <fadeinstart>500</fadeinstart>
+  <fadeinduration>0</fadeinduration>
+  <fadeinhardness>3</fadeinhardness>
+  <fadeoutstart>194273</fadeoutstart>
+  <fadeoutduration>0</fadeoutduration>
+  <fadeouthardness>4</fadeouthardness>
+  <basevolume>0</basevolume>
+</track>
+  </tracks>
+</tracklist>

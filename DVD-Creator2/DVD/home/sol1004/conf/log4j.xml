@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+
+  log4j.xml
+  Configuration file for all LCDClient loggers
+  v1.0.3.2
+  _____________________________________________________________________________
+
+  Console:
+      Logs all info events and above.
+
+  Common settings for all logs file:
+      Appends to existing log files at startup.
+      Format:  date       time     class     level  message
+      Example: 2011-06-06 13:51:27 ClientApp [INFO] Machine ID [123] started.
+
+
+  Three sets of log files in the LCDClient app:
+
+    logs\debug.log
+      Logs all debug events and above from all classes for debug purposes.
+      Daily rolling.
+
+    logs\error.log
+      Logs errors and above from all classes for debug purposes.
+      File rolling 1000Kb max each, 5 backups max
+
+    audit\audit.log
+      Logs the play/stop events from lcdclient.player.HeadlessPlayer
+      for audit purposes.
+
+-->
+
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+  <!-- Console -->
+  <appender name="stdout" class="org.apache.log4j.ConsoleAppender">
+     <!-- change the threshold here to set the log level -->
+     <param name="threshold" value="info"/>
+    <layout class="org.apache.log4j.PatternLayout">
+      <param 
+        name="ConversionPattern"
+        value="%d{yyyy-MM-dd HH:mm:ss} %c{1} [%p] %m%n"/>
+    </layout>
+  </appender>
+
+
+  <!-- Debug log  -->
+  <appender name="debug" class="org.apache.log4j.DailyRollingFileAppender">
+    <!-- change the threshold here to set the log level -->
+    <param name="threshold" value="debug"/>
+    <param name="file" value="logs/debug.log"/>
+    <param name="Append" value="true"/>
+    <param name="DatePattern" value="'.'yyyy-MM-dd"/>
+    <layout class="org.apache.log4j.PatternLayout">
+      <param 
+        name="ConversionPattern"
+        value="%d{yyyy-MM-dd HH:mm:ss} %c{1} [%p] %m%n"/>
+    </layout>
+  </appender>
+
+
+  <!-- Error log -->
+  <appender name="errlog" class="org.apache.log4j.RollingFileAppender">
+    <param name="threshold" value="error"/>
+    <param name="file" value="logs/error.log"/>
+    <param name="MaxFileSize" value="1000KB"/>
+    <param name="MaxBackupIndex" value="5"/>
+    <param name="Append" value="true"/>
+    <layout class="org.apache.log4j.PatternLayout">
+      <param 
+        name="ConversionPattern"
+        value="%d{yyyy-MM-dd HH:mm:ss} %c{1} [%p] %m%n"/>
+    </layout>
+  </appender>
+
+
+  <!-- Audit file -->
+  <appender name="audit" class="org.apache.log4j.DailyRollingFileAppender">
+    <param name="threshold" value="info"/>
+    <param name="file" value="audit/audit.log"/>
+    <param name="Append" value="true"/>
+    <param name="DatePattern" value="'.'yyyy-MM-dd"/>
+    <layout class="org.apache.log4j.PatternLayout">
+      <param 
+        name="ConversionPattern"
+        value="%d{yyyy-MM-dd HH:mm:ss} %m%n"/>
+    </layout>
+  </appender>
+
+  <!-- redirects logs from HeadlessPlayer to the audit log -->
+  <logger name="lcdclient.player.HeadlessPlayer" additivity="true">
+    <level value="info"/>
+    <appender-ref ref="audit" />
+  </logger>
+
+
+  <!-- redirects javazoom errors to error log -->
+  <logger name="javazoom" additivity="false">
+    <!-- change the level here to add javazoom trace calls to the debug log -->
+    <level value="info"/>
+    <appender-ref ref="debug" />
+  </logger>
+
+
+  <!-- lists appenders -->
+  <root>
+    <priority value="trace" />
+    <appender-ref ref="stdout" />
+    <appender-ref ref="debug" />
+    <appender-ref ref="errlog" />
+  </root>
+
+</log4j:configuration>

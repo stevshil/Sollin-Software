@@ -1,0 +1,6 @@
+F initrd.img                                                                                                                                                                                                      	initrd.img
+F initrd-PAE.img                                                                                                                                                                                                  	initrd-PAE.img
+F upgrade.img                                                                                                                                                                                                     	upgrade.img
+F upgrade-PAE.img                                                                                                                                                                                                 	upgrade-PAE.img
+F vmlinuz                                                                                                                                                                                                         	vmlinuz
+F vmlinuz-PAE                                                                                                                                                                                                     	vmlinuz-PAE

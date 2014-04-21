@@ -1,0 +1,27 @@
+cd
+echo "Before running this script make sure you have created the configuration and copied the necessary music files into the conf, playlists and tracks directories!"
+echo "Press ENTER to continue if you have already done this"
+
+#DVDBUILD=$HOME/Documents/projects/jerome-mediasys/Sollin/Sollin-Software/DVD-Creator
+DVDBUILD=$HOME/Sollin/Sollin-Software/DVD-Creator
+DVDDIR=$DVDBUILD/DVD
+
+cd /
+tar zcvf $HOME/sollin-1.0.0.tar.gz $HOME/.gconf/desktop/gnome/background/%gconf.xml $HOME/.gnome2/backgrounds.xml $HOME/.thumbnails/normal/b05765c1bf225bd69bb30e77ee07e1f0.png $HOME/LCDClient.jar $HOME/Sollin_desktop.bmp $HOME/audit $HOME/essentialJavaFiles $HOME/lib $HOME/logs
+cd
+rpmdev-wipetree
+~/bin/tgz2rpm.sh sollin-1.0.0.tar.gz
+mv sollin-1.0.0.tar.gz rpmbuild/SOURCES
+rpmbuild -ba rpmbuild/SPECS/sollin-1.0.0.spec
+cp rpmbuild/RPMS/i686/sollin-1.0.0-0.i686.rpm $DVDDIR/Packages
+cd $DVDDIR
+createrepo -g Packages/groups.xml .
+
+echo "Process complete.
+Now run the following commands to build your DVD;
+
+cd $DVDBUILD
+./build-sollin-dvd
+
+Follow the instructions.
+After the DVD build is complete burn the ISO image to DVD using K3b"

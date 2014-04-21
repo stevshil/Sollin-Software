@@ -1,0 +1,25 @@
+ONE TIME ONLY
+	1. Install rpm-build and rpmdevtools
+	2. run rpm-setuptree
+	This creates the necessary directory structure under your home directory to build RPM packages
+	3. Edit the .rpmmacros file in your home directory, so that it contains only;
+	%_topdir      %(echo $HOME)/rpmbuild
+	%_tmppath     %(echo $HOME)/rpmbuild/tmp
+
+BUILDING THE RPM
+1. On the system where the software has been installed perform the following
+	cd /
+	tar cvf /tmp/sollin-1.0.0.tar.gz /home/sol1004 /usr/java/jrel.6.0_25/lib/i386/librxtxSerial.so /usr/java/jrel.6.0_25/lib/ext/RXTXcomm.jar
+
+2. Copy the /tmp/sollin-1.0.0.tar.gz file to rpmbuild/SOURCES directory
+3. cd to the rpmbuild/SOURCES directory and run the tgz2rpm.sh command
+	tgz2rpm.sh sollin-1.0.0.tar.gz
+4. move the .spec file created to rpmbuild/SPECS
+5. Edit the .spec file so that the paths in the %files section all have a / at the beginning of them
+6. Now build the rpm
+	rpmbuild -ba SPECS/sollin-1.0.0.spec
+7. Copy the file in the RPMS folder (sollin-1.0.0-0.i686) to the DVD/Packages directory
+	NOTE: if you don't build the file as sollin-1.0.0.tar.gz which productes sollin-1.0.0-0.i686.rpm, then you will need to change the .ks files to match the name of the rpm (minus the rpm name).  Search for sollin and then change to the correct version.
+
+
+The rpms directory contains the initial rpms, src rpms and spec file used.

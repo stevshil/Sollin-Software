@@ -1,0 +1,3 @@
+#!/bin/bash
+
+mkisofs -o $HOME/Sollin/ISOs/update.iso -J -R -V "Update" $HOME/Sollin/Sollin-Software/Update-CD

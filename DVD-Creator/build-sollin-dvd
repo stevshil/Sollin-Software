@@ -1,0 +1,115 @@
+#!/bin/bash
+# Get working Dir
+BUILDDIR=$HOME/Documents/projects/jerome-mediasys/Sollin/Sollin-Software/DVD-Creator
+if [ -d $BUILDDIR ]
+then
+	OUTPUTDIR=$HOME/Documents/projects/jerome-mediasys/Sollin/ISOs
+else
+	BUILDDIR=$HOME/Sollin/Sollin-Software/DVD-Creator
+	OUTPUTDIR=$HOME/Sollin/ISOs
+fi
+SERVERIP=`ifconfig eth0 | grep 'inet addr' | sed -e 's/^.*addr://' -e 's/  Bcast.*//'`
+DVDDIR=$BUILDDIR/DVD
+
+echo "Format of timezone is directory/city"
+echo "See /usr/share/zoneinfo directory for full list"
+echo "Examples:
+Europe/London
+Europe/Amsterdam
+Europe/Dublin
+Europe/Madrid
+Europe/Paris
+Europe/Budapest
+America/New_York
+America/Toronto
+America/Vancouver
+Asia/Hong_Kong
+Asia/Istanbul
+Asia/Jakarta
+Asia/Tokyo
+Canada/Eastern
+Canada/Mountain
+Canada/Pacific
+Australia/West
+Australia/South"
+echo -n "Enter valid time zone (Europe/London is default): "
+read TIMEZONE
+if [[ -z $TIMEZONE ]]
+then
+	TIMEZONE="Europe/London"
+fi
+echo "TIMEZONE is $TIMEZONE"
+
+if (( $# == 0 ))
+then
+	# Ask the user for their static network configuration
+	echo -n "Enter IP address for system: "
+	read IP
+	echo -n "Enter Netmask for system: "
+	read NM
+	echo -n "Enter Gateway/router for system: "
+	read GW
+	echo -n "Enter (comma separated list) of DNS servers: "
+	read NS
+else
+	if [[ $1 != 'dhcp' && $1 != 'nonet' ]]
+	then
+		# Use the specified file
+		. $1
+	fi
+fi
+
+cd $BUILDDIR
+
+if [[ $1 == 'dhcp' ]]
+then
+	cp $BUILDDIR/sollin-install-orig.ks $DVDDIR/sollin-install.ks
+	cp $BUILDDIR/sollin-recover-orig.ks $DVDDIR/sollin-recover.ks
+	sed -e "s,^timezone --utc.*$,timezone --utc $TIMEZONE," -e "s/NAMESERVERS//" $DVDDIR/sollin-install.ks > $DVDDIR/sollin-install2.ks
+	sed -e "s,^timezone --utc.*$,timezone --utc $TIMEZONE," -e "s/NAMESERVERS//" $DVDDIR/sollin-recover.ks > $DVDDIR/sollin-recover2.ks
+	mv $DVDDIR/sollin-install2.ks $DVDDIR/sollin-install.ks
+	mv $DVDDIR/sollin-recover2.ks $DVDDIR/sollin-recover.ks
+elif [[ $1 == 'nonet' ]]
+then
+	sed -e's/^network --device.*$//' -e 's/NAMESERVERS//' $BUILDDIR/sollin-install-orig.ks >$DVDDIR/sollin-install.ks
+	sed -e 's/^network --device.*$//' -e 's/NAMESERVERS//' $BUILDDIR/sollin-recover-orig.ks >$DVDDIR/sollin-recover.ks
+	sed "s,^timezone --utc.*$,timezone --utc $TIMEZONE," $DVDDIR/sollin-install.ks > $DVDDIR/sollin-install2.ks
+	sed "s,^timezone --utc.*$,timezone --utc $TIMEZONE," $DVDDIR/sollin-recover.ks > $DVDDIR/sollin-recover2.ks
+	mv $DVDDIR/sollin-install2.ks $DVDDIR/sollin-install.ks
+	mv $DVDDIR/sollin-recover2.ks $DVDDIR/sollin-recover.ks
+	sed 's,retry 60;" >>/etc/dhclient-eth0.conf,retry 60;" >>/etc/dhclient-eth0.conf\necho "DEVICE=eth0\nBOOTPROTO=dhcp\nONBOOT=no\nNOZEROCONF=yes\nNM_CONTROLLED=no\nTYPE=Ethernet" >/etc/sysconfig/network-scripts/ifcfg-eth0,' $DVDDIR/sollin-install.ks > $DVDDIR/sollin-install2.ks
+	sed 's,retry 60;" >>/etc/dhclient-eth0.conf,retry 60;" >>/etc/dhclient-eth0.conf\necho "DEVICE=eth0\nBOOTPROTO=dhcp\nONBOOT=no\nNOZEROCONF=yes\nNM_CONTROLLED=no\nTYPE=Ethernet" >/etc/sysconfig/network-scripts/ifcfg-eth0,' $DVDDIR/sollin-recover.ks > $DVDDIR/sollin-recover2.ks
+	mv $DVDDIR/sollin-install2.ks $DVDDIR/sollin-install.ks
+	mv $DVDDIR/sollin-recover2.ks $DVDDIR/sollin-recover.ks
+else
+	# Set the nameserver lines correctly
+	NAMES=$(echo $NS | sed 's/^/nameserver /')
+	NAMES=$(echo $NAMES | sed 's/,/,nameserver /g')
+	NAMES=$(echo $NAMES | sed 's/,/\\n/g')
+	# Create the network settings for the install DVD
+	sed "s/^network --device.*$/network --device eth0 --bootproto static --ip $IP --netmask $NM --gateway $GW --nameserver $NS/" $BUILDDIR/sollin-install-orig.ks > $DVDDIR/sollin-install.ks
+	sed -e "s,^timezone --utc.*$,timezone --utc $TIMEZONE," -e "s,NAMESERVERS,echo '$NAMES'>/etc/resolv.conf," $DVDDIR/sollin-install.ks > $DVDDIR/sollin-install2.ks
+	mv $DVDDIR/sollin-install2.ks $DVDDIR/sollin-install.ks
+
+	# Create network settings for the recovery DVD
+	sed "s/^network --device.*$/network --device eth0 --bootproto static --ip $IP --netmask $NM --gateway $GW --nameserver $NS/" $BUILDDIR/sollin-recover-orig.ks > $DVDDIR/sollin-recover.ks
+	sed -e "s,^timezone --utc.*$,timezone --utc $TIMEZONE," -e "s,NAMESERVERS,echo '$NAMES'>/etc/resolv.conf," $DVDDIR/sollin-recover.ks > $DVDDIR/sollin-recover2.ks
+	mv $DVDDIR/sollin-recover2.ks $DVDDIR/sollin-recover.ks
+fi
+
+# Build network install kickstart file
+sed -e "s,^cdrom,url --url=http://$SERVERIP/Install/Sollin\nnetwork --device eth0 --bootproto dhcp," -e 's/^reboot --eject/xconfig --startxonboot\nreboot --eject/' -e "s!^mount -t iso9660 /dev/sr0!mount -t nfs $SERVERIP:/home/web-apps/LinuxImgs/Sollin!" $DVDDIR/sollin-install.ks >$DVDDIR/sollin-web-install.ks
+
+if [[ $2 != "nodvd" ]]
+then 
+	# Build the fresh installation DVD
+	cp isolinux-install.cfg $DVDDIR/isolinux/isolinux.cfg
+	cd $DVDDIR
+	mkisofs -o $OUTPUTDIR/sollin-install.iso -b isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot -boot-load-size 4 -boot-info-table -J -R -V "Sollin Install Disk" .
+	cd ..
+	
+	# Build the recovery DVD
+	cp isolinux-recover.cfg $DVDDIR/isolinux/isolinux.cfg
+	cd $DVDDIR
+	mkisofs -o $OUTPUTDIR/sollin-recovery.iso -b isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot -boot-load-size 4 -boot-info-table -J -R -V "Sollin Recovery Disk" .
+fi

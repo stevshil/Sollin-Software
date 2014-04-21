@@ -1,0 +1,23 @@
+build-solin-dvd is a shell script that can be used in 1 of 2 ways;
+1. Interactive
+	Type in the details as prompted
+	Note, that if you specify dhcp as the argument it will generate DHCP based IP systems, but will still ask for time zone.
+
+2. Answer file
+	Create files with the following format
+		IP=192.168.1.1
+		GW=192.168.1.254
+		NM=255.255.255.0
+		NS=192.168.1.254,192.168.1.253
+
+Where;
+	IP is the IP address for the host
+	GW is the default gateway of the host
+	NM is the netmask for the host
+	NS is a single, or comma separated list of DNS server
+
+An example file is included called example-ip-config-file.  You can create as many files as you like and then run the command with each file name in turn, burning a DVD for each one.
+
+The script modifies the .ks files for install and build and then builds 2 DVD 
+ISO images which can then be burnt to DVD.  If using Linux K3B is probably the 
+best tool to do this with.

@@ -1,0 +1,220 @@
+<?xml version="1.0"?>
+<!DOCTYPE wallpapers SYSTEM "gnome-wp-list.dtd">
+<wallpapers>
+  <wallpaper deleted="false">
+    <name>Sollin_desktop.bmp</name>
+    <filename>/home/sol1004/Sollin_desktop.bmp</filename>
+    <options>stretched</options>
+    <shade_type>vertical-gradient</shade_type>
+    <pcolor>#22224b4b6868</pcolor>
+    <scolor>#14142c2c3d3d</scolor>
+  </wallpaper>
+  <wallpaper deleted="false">
+    <name>Blast of Red</name>
+    <filename>/usr/share/backgrounds/images/tiny_blast_of_red.jpg</filename>
+    <options>stretched</options>
+    <shade_type>solid</shade_type>
+    <pcolor>#ffffffffffff</pcolor>
+    <scolor>#000000000000</scolor>
+  </wallpaper>
+  <wallpaper deleted="false">
+    <name>Two Wings</name>
+    <filename>/usr/share/backgrounds/nature/TwoWings.jpg</filename>
+    <options>zoom</options>
+    <shade_type>vertical-gradient</shade_type>
+    <pcolor>#22224b4b6868</pcolor>
+    <scolor>#14142c2c3d3d</scolor>
+  </wallpaper>
+  <wallpaper deleted="false">
+    <name>Aqua</name>
+    <filename>/usr/share/backgrounds/nature/Aqua.jpg</filename>
+    <options>zoom</options>
+    <shade_type>vertical-gradient</shade_type>
+    <pcolor>#22224b4b6868</pcolor>
+    <scolor>#14142c2c3d3d</scolor>
+  </wallpaper>
+  <wallpaper deleted="false">
+    <name>Yellow Flower</name>
+    <filename>/usr/share/backgrounds/nature/YellowFlower.jpg</filename>
+    <options>zoom</options>
+    <shade_type>vertical-gradient</shade_type>
+    <pcolor>#22224b4b6868</pcolor>
+    <scolor>#14142c2c3d3d</scolor>
+  </wallpaper>
+  <wallpaper deleted="false">
+    <name>No Desktop Background</name>
+    <filename>(none)</filename>
+    <options>stretched</options>
+    <shade_type>vertical-gradient</shade_type>
+    <pcolor>#22224b4b6868</pcolor>
+    <scolor>#14142c2c3d3d</scolor>
+  </wallpaper>
+  <wallpaper deleted="false">
+    <name>Gulp</name>
+    <filename>/usr/share/backgrounds/abstract/Gulp.png</filename>
+    <options>zoom</options>
+    <shade_type>solid</shade_type>
+    <pcolor>#3a3a59599090</pcolor>
+    <scolor>#14142c2c3d3d</scolor>
+  </wallpaper>
+  <wallpaper deleted="false">
+    <name>Flow</name>
+    <filename>/usr/share/backgrounds/abstract/Flow.png</filename>
+    <options>zoom</options>
+    <shade_type>solid</shade_type>
+    <pcolor>#41415b5b6969</pcolor>
+    <scolor>#14142c2c3d3d</scolor>
+  </wallpaper>
+  <wallpaper deleted="false">
+    <name>Dune</name>
+    <filename>/usr/share/backgrounds/nature/Dune.jpg</filename>
+    <options>zoom</options>
+    <shade_type>vertical-gradient</shade_type>
+    <pcolor>#22224b4b6868</pcolor>
+    <scolor>#14142c2c3d3d</scolor>
+  </wallpaper>
+  <wallpaper deleted="false">
+    <name>Waves</name>
+    <filename>/usr/share/backgrounds/abstract/Waves.png</filename>
+    <options>zoom</options>
+    <shade_type>solid</shade_type>
+    <pcolor>#11116666aaaa</pcolor>
+    <scolor>#14142c2c3d3d</scolor>
+  </wallpaper>
+  <wallpaper deleted="false">
+    <name>Ladybird</name>
+    <filename>/usr/share/backgrounds/nature/LadyBird.jpg</filename>
+    <options>zoom</options>
+    <shade_type>vertical-gradient</shade_type>
+    <pcolor>#22224b4b6868</pcolor>
+    <scolor>#14142c2c3d3d</scolor>
+  </wallpaper>
+  <wallpaper deleted="false">
+    <name>Rain Drops</name>
+    <filename>/usr/share/backgrounds/nature/RainDrops.jpg</filename>
+    <options>zoom</options>
+    <shade_type>vertical-gradient</shade_type>
+    <pcolor>#22224b4b6868</pcolor>
+    <scolor>#14142c2c3d3d</scolor>
+  </wallpaper>
+  <wallpaper deleted="false">
+    <name>Storm</name>
+    <filename>/usr/share/backgrounds/nature/Storm.jpg</filename>
+    <options>zoom</options>
+    <shade_type>vertical-gradient</shade_type>
+    <pcolor>#22224b4b6868</pcolor>
+    <scolor>#14142c2c3d3d</scolor>
+  </wallpaper>
+  <wallpaper deleted="false">
+    <name>Earth from Space</name>
+    <filename>/usr/share/backgrounds/images/earth_from_space.jpg</filename>
+    <options>stretched</options>
+    <shade_type>solid</shade_type>
+    <pcolor>#ffffffffffff</pcolor>
+    <scolor>#000000000000</scolor>
+  </wallpaper>
+  <wallpaper deleted="false">
+    <name>Blue Type</name>
+    <filename>/usr/share/backgrounds/tiles/blue_type.png</filename>
+    <options>wallpaper</options>
+    <shade_type>solid</shade_type>
+    <pcolor>#ffffffffffff</pcolor>
+    <scolor>#000000000000</scolor>
+  </wallpaper>
+  <wallpaper deleted="false">
+    <name>Flower Garden</name>
+    <filename>/usr/share/backgrounds/images/flowers_and_leaves.jpg</filename>
+    <options>stretched</options>
+    <shade_type>solid</shade_type>
+    <pcolor>#ffffffffffff</pcolor>
+    <scolor>#000000000000</scolor>
+  </wallpaper>
+  <wallpaper deleted="false">
+    <name>Silk</name>
+    <filename>/usr/share/backgrounds/abstract/Silk.png</filename>
+    <options>zoom</options>
+    <shade_type>horizontal-gradient</shade_type>
+    <pcolor>#ffff92920e0e</pcolor>
+    <scolor>#eaeabcbc1212</scolor>
+  </wallpaper>
+  <wallpaper deleted="false">
+    <name>Fresh Flower</name>
+    <filename>/usr/share/backgrounds/nature/FreshFlower.jpg</filename>
+    <options>zoom</options>
+    <shade_type>vertical-gradient</shade_type>
+    <pcolor>#22224b4b6868</pcolor>
+    <scolor>#14142c2c3d3d</scolor>
+  </wallpaper>
+  <wallpaper deleted="false">
+    <name>Blinds</name>
+    <filename>/usr/share/backgrounds/nature/Blinds.jpg</filename>
+    <options>zoom</options>
+    <shade_type>vertical-gradient</shade_type>
+    <pcolor>#22224b4b6868</pcolor>
+    <scolor>#14142c2c3d3d</scolor>
+  </wallpaper>
+  <wallpaper deleted="false">
+    <name>Blue Swirl</name>
+    <filename>/usr/share/backgrounds/tiles/default_blue.jpg</filename>
+    <options>stretched</options>
+    <shade_type>solid</shade_type>
+    <pcolor>#ffffffffffff</pcolor>
+    <scolor>#000000000000</scolor>
+  </wallpaper>
+  <wallpaper deleted="false">
+    <name>Spring</name>
+    <filename>/usr/share/backgrounds/abstract/Spring.png</filename>
+    <options>zoom</options>
+    <shade_type>solid</shade_type>
+    <pcolor>#6666baba0000</pcolor>
+    <scolor>#14142c2c3d3d</scolor>
+  </wallpaper>
+  <wallpaper deleted="false">
+    <name>Garden</name>
+    <filename>/usr/share/backgrounds/nature/Garden.jpg</filename>
+    <options>zoom</options>
+    <shade_type>vertical-gradient</shade_type>
+    <pcolor>#22224b4b6868</pcolor>
+    <scolor>#14142c2c3d3d</scolor>
+  </wallpaper>
+  <wallpaper deleted="false">
+    <name>Wood</name>
+    <filename>/usr/share/backgrounds/nature/Wood.jpg</filename>
+    <options>zoom</options>
+    <shade_type>vertical-gradient</shade_type>
+    <pcolor>#22224b4b6868</pcolor>
+    <scolor>#14142c2c3d3d</scolor>
+  </wallpaper>
+  <wallpaper deleted="false">
+    <name>Laughlin</name>
+    <filename>/usr/share/backgrounds/laughlin/default/laughlin.xml</filename>
+    <options>stretched</options>
+    <shade_type>vertical-gradient</shade_type>
+    <pcolor>#22224b4b6868</pcolor>
+    <scolor>#14142c2c3d3d</scolor>
+  </wallpaper>
+  <wallpaper deleted="false">
+    <name>Ladybugs</name>
+    <filename>/usr/share/backgrounds/images/ladybugs.jpg</filename>
+    <options>stretched</options>
+    <shade_type>solid</shade_type>
+    <pcolor>#ffffffffffff</pcolor>
+    <scolor>#000000000000</scolor>
+  </wallpaper>
+  <wallpaper deleted="false">
+    <name>Stone Bird</name>
+    <filename>/usr/share/backgrounds/images/stone_bird.jpg</filename>
+    <options>stretched</options>
+    <shade_type>solid</shade_type>
+    <pcolor>#ffffffffffff</pcolor>
+    <scolor>#000000000000</scolor>
+  </wallpaper>
+  <wallpaper deleted="false">
+    <name>Green Meadow</name>
+    <filename>/usr/share/backgrounds/nature/GreenMeadow.jpg</filename>
+    <options>zoom</options>
+    <shade_type>vertical-gradient</shade_type>
+    <pcolor>#22224b4b6868</pcolor>
+    <scolor>#14142c2c3d3d</scolor>
+  </wallpaper>
+</wallpapers>

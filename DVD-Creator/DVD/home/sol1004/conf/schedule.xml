@@ -1,0 +1,53 @@
+<?xml version="1.0" ?>
+<!-- Schedule file for client v1.0.2 -->
+<schedule>
+  <day weekday="monday">
+    <timeslot>
+      <playlist>271</playlist>
+      <start>00:00:01</start>
+      <end>23:59:59</end>
+    </timeslot>
+  </day>
+  <day weekday="tuesday">
+    <timeslot>
+      <playlist>271</playlist>
+      <start>00:00:01</start>
+      <end>23:59:59</end>
+    </timeslot>
+  </day>
+  <day weekday="wednesday">
+    <timeslot>
+      <playlist>271</playlist>
+      <start>00:00:01</start>
+      <end>23:59:59</end>
+    </timeslot>
+  </day>
+  <day weekday="thursday">
+    <timeslot>
+      <playlist>271</playlist>
+      <start>00:00:01</start>
+      <end>23:59:59</end>
+    </timeslot>
+  </day>
+  <day weekday="friday">
+    <timeslot>
+      <playlist>271</playlist>
+      <start>00:00:01</start>
+      <end>23:59:59</end>
+    </timeslot>
+  </day>
+  <day weekday="saturday">
+    <timeslot>
+      <playlist>271</playlist>
+      <start>00:00:01</start>
+      <end>23:59:59</end>
+    </timeslot>
+  </day>
+  <day weekday="sunday">
+    <timeslot>
+      <playlist>271</playlist>
+      <start>00:00:01</start>
+      <end>23:59:59</end>
+    </timeslot>
+  </day>
+</schedule>

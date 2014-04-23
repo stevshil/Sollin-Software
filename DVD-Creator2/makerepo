@@ -1,0 +1,3 @@
+cd DVD
+#createrepo -i plist --outputdir . --database --workers 10 -g comps.xml .
+createrepo --outputdir DVD --database --workers 3 -g comps.xml DVD

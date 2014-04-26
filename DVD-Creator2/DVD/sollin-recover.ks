@@ -2,11 +2,12 @@ install
 cdrom
 lang en_GB.UTF-8
 keyboard uk
-network --device=eth0 --bootproto=dhcp --hostname=sollin.localdomain
+network --bootproto=dhcp --hostname=sollin.localdomain --onboot=yes
 rootpw  --iscrypted $6$tWTxixNd$D5UuZXbiRBNhxyYKXVGWDvI6ZK4pIMghNUB6V.NRqmdzIjWAe9w9g3u3vCDhtek7om892tQVZUxBejA7Kov/F1
 
 firstboot --disable
-firewall --enabled --service=ssh
+#firewall --enabled --service=ssh
+firewall --disabled
 authconfig --enableshadow --passalgo=sha512
 selinux --disabled
 timezone --utc Europe/London
@@ -1064,6 +1065,9 @@ retry 60;" >>/etc/dhclient-eth0.conf
 
 # Place holder for dns servers
 
+
+# Place holder for network config
+#NETWORK
 
 # Make sol1004 sudo administrator
 echo "sol1004 ALL=(ALL)	ALL" >>/etc/sudoers

@@ -2,14 +2,14 @@ install
 url --url=http:///Install/Sollin
 network --activate --device=eth0 --bootproto dhcp --hostname=sollin.localdomain
 lang en_GB.UTF-8
-#keyboard --xlayouts=uk,'uk (qwerty)'
-keyboard --xlayouts=us
-#network --device=eth0 --bootproto=dhcp --hostname=sollin.localdomain
-network --bootproto=dhcp --hostname=sollin.localdomain
+#keyboard --xlayouts=us
+keyboard uk
+network --bootproto=dhcp --hostname=sollin.localdomain --onboot=yes
 rootpw  --iscrypted $6$tWTxixNd$D5UuZXbiRBNhxyYKXVGWDvI6ZK4pIMghNUB6V.NRqmdzIjWAe9w9g3u3vCDhtek7om892tQVZUxBejA7Kov/F1
 
 firstboot --disable
-firewall --enabled --service=ssh
+#firewall --enabled --service=ssh
+firewall --disabled
 authconfig --enableshadow --passalgo=sha512
 selinux --disabled
 timezone --utc Europe/London
@@ -1060,6 +1060,10 @@ retry 60;" >>/etc/dhclient-eth0.conf
 
 # Place holder for dns servers
 
+
+# Place holder for network configuration as using network in kickstart
+# forces it to ask question, rather than skip if cable is not present
+#NETWORK
 
 # Make sol1004 sudo administrator
 echo "sol1004 ALL=(ALL)	ALL" >>/etc/sudoers

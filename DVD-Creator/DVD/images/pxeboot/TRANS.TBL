@@ -1,0 +1,4 @@
+F initrd.img                                                                                                                                                                                                      	initrd.img
+F initrd-PAE.img                                                                                                                                                                                                  	initrd-PAE.img
+F vmlinuz                                                                                                                                                                                                         	vmlinuz
+F vmlinuz-PAE                                                                                                                                                                                                     	vmlinuz-PAE

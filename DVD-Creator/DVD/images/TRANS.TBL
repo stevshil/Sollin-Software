@@ -1,0 +1,4 @@
+F efiboot.img                                                                                                                                                                                                     	efiboot.img
+F efidisk.img                                                                                                                                                                                                     	efidisk.img
+F install.img                                                                                                                                                                                                     	install.img
+D pxeboot                                                                                                                                                                                                         	pxeboot

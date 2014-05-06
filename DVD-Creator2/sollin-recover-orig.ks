@@ -15,10 +15,9 @@ bootloader --location=mbr --driveorder=sda --append=" LANG=en_US.UTF-8 SYSFONT=l
 
 user --name=sol1004 --gecos="Media System" --homedir=/home/sol1004 --password="$6$an1JYFKL$BFgYFtThEkaXOmCemNDWB7jvQcunNKY5szlQF25bfE5icM8ap8EtoINBZvEpciCOgD1Z8v3W3IUq/spjhfz1m1" --iscrypted --shell=/bin/bash --uid=500 --groups=uucp,lock,dialout,pulse,audio,pulse-access
 
-clearpart --all --initlabel
-PARTROOT
-PARTSWAP
-part /home --fstype=ext3 --grow --asprimary
+part / --fstype=ext3 --usepart sda1
+part /home --fstype=ext3 --grow --asprimary --userpart sda3 --noformat
+part swap --userpart sda2
 
 reboot --eject
 
@@ -1219,7 +1218,7 @@ chkconfig vmtoolsd off
 # Set up the LCD device and sound card for java
 mkdir /tmp/mycd
 mount -t iso9660 /dev/sr0 /tmp/mycd
-cp -r /tmp/mycd/home/sol1004 /home
+#cp -r /tmp/mycd/home/sol1004 /home
 chown -R sol1004:sol1004 /home/sol1004/tracks
 cp /usr/lib/jvm/java-1.7.0-openjdk-1.7.0.25.x86_64/jre/lib/i386/libpulse-java.so /usr/java/jre1.6.0_20/lib/i386/libpulse-java.so
 cp /usr/lib/jvm/java-1.7.0-openjdk-1.7.0.25.x86_64/jre/lib/ext/pulse-java.jar /usr/java/jre1.6.0_20/lib/ext/pulse.java.jar

@@ -16,8 +16,8 @@ bootloader --location=mbr --driveorder=sda --append=" LANG=en_US.UTF-8 SYSFONT=l
 user --name=sol1004 --gecos="Media System" --homedir=/home/sol1004 --password="$6$an1JYFKL$BFgYFtThEkaXOmCemNDWB7jvQcunNKY5szlQF25bfE5icM8ap8EtoINBZvEpciCOgD1Z8v3W3IUq/spjhfz1m1" --iscrypted --shell=/bin/bash --uid=500 --groups=uucp,lock,dialout,pulse,audio,pulse-access
 
 part / --fstype=ext3 --usepart sda1
-part /home --fstype=ext3 --grow --asprimary --userpart sda3 --noformat
-part swap --userpart sda2
+part /home --fstype=ext3 --grow --asprimary --usepart sda3 --noformat
+part swap --usepart sda2
 
 reboot --eject
 

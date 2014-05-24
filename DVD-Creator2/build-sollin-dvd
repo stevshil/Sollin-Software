@@ -125,11 +125,14 @@ sed -e "s,^cdrom,url --url=http://$SERVERIP/Install/Sollin\nnetwork --activate -
 
 if [[ $3 != "nodvd" ]]
 then 
+	#if [[ $LOGNAME != 'steve' ]]
+	#then
 	# Build the fresh installation DVD
 	cp isolinux-install.cfg $DVDDIR/isolinux/isolinux.cfg
 	cd $DVDDIR
 	mkisofs -o $OUTPUTDIR/sollin-install.iso -b isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot -boot-load-size 4 -joliet-long -boot-info-table -J -R -V "Sollin Install Disk" .
 	cd ..
+	#fi
 	
 	if [[ $LOGNAME != 'steve' ]]
 	then

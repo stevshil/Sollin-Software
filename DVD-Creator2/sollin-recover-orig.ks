@@ -1,6 +1,7 @@
 install
 cdrom
 lang en_GB.UTF-8
+#keyboard --xlayouts=us
 keyboard uk
 network --bootproto=dhcp --hostname=sollin.localdomain --onboot=yes
 rootpw  --iscrypted $6$tWTxixNd$D5UuZXbiRBNhxyYKXVGWDvI6ZK4pIMghNUB6V.NRqmdzIjWAe9w9g3u3vCDhtek7om892tQVZUxBejA7Kov/F1
@@ -16,8 +17,8 @@ bootloader --location=mbr --driveorder=sda --append=" LANG=en_US.UTF-8 SYSFONT=l
 user --name=sol1004 --gecos="Media System" --homedir=/home/sol1004 --password="$6$an1JYFKL$BFgYFtThEkaXOmCemNDWB7jvQcunNKY5szlQF25bfE5icM8ap8EtoINBZvEpciCOgD1Z8v3W3IUq/spjhfz1m1" --iscrypted --shell=/bin/bash --uid=500 --groups=uucp,lock,dialout,pulse,audio,pulse-access
 
 part / --fstype=ext3 --usepart sda1
-part /home --fstype=ext3 --grow --asprimary --usepart sda3 --noformat
 part swap --usepart sda2
+part /home --fstype=ext3 --usepart sda3 --noformat
 
 reboot --eject
 
@@ -1038,18 +1039,12 @@ tzdata-java
 %end
 
 %post
-
+echo "Post log started `date`">/home/sol1004/postlog.txt
 # Set power button no delay shutdown
 echo "PATH=/sbin:/usr/sbin:/bin:/usr/bin
 shutdown -h now" >/etc/acpi/actions/power.sh
 
-# Add the .config configuration files
-cp -rf /tmp/mycd/home/sol1004/.config /home/sol1004/
-
-# Set autologon
-cp /tmp/mycd/home/sol1004/lxdm.conf /etc/lxdm/lxdm.conf
-cp -f /tmp/mycd/home/sol1004/.xscreensaver /home/sol1004/
-chown sol1004:sol1004 /home/sol1004/.xscreensaver
+echo "DEBUG: Written /etc/acpi/actions/power.sh" >>/home/sol1004/postlog.txt
 
 # Enable sol1004 automatic logon
 echo "# gdm automatic login configuration
@@ -1058,6 +1053,8 @@ AutomaticLoginEnable=true
 AutomaticLogin=sol1004
 ">>/etc/gdm/custom.conf
 
+echo "DEBUG: Written /etc/gdm/custom.conf" >>/home/sol1004/postlog.txt
+
 # Set DHCP timeout if cable not connected
 echo "timeout 60
 retry 60;" >>/etc/dhclient-eth0.conf
@@ -1065,32 +1062,46 @@ retry 60;" >>/etc/dhclient-eth0.conf
 # Place holder for dns servers
 NAMESERVERS
 
-# Place holder for network config
-#NETWORK
+echo "DEBUG: Done /etc/resolv.conf and /etc/dhclient-eth0.conf" >>/home/sol1004/postlog.txt
 
 # Make sol1004 sudo administrator
 echo "sol1004 ALL=(ALL)	ALL" >>/etc/sudoers
 echo "sol1004 ALL=	NOPASSWD: /bin/update-sollin" >>/etc/sudoers
 echo "sol1004 ALL=	NOPASSWD: /home/sol1004/bin/chkupdate" >>/etc/sudoers
 
-if [ ! -d /home/sol1004/.config/autostart ]
-then
-	mkdir -p /home/sol1004/.config/autostart
-fi
-chown -R sol1004:sol1004 /home/sol1004/.config
+echo "DEBUG: Written /etc/sudoers" >>/home/sol1004/postlog.txt
 
-# Set the sollin player to start on log in
-echo '[Desktop Entry]
-Type=Application
-Exec=/usr/bin/java -Xincgc -Dlog4j.configuration=file:///home/sol1004/conf/log4j.xml -jar /home/sol1004/LCDClient.jar
-#Exec=/usr/java/default/bin/java -Xincgc -Dlog4j.configuration=file:///home/sol1004/conf/log4j.xml -jar /home/sol1004/LCDClient.jar
-Hidden=false
-X-GNOME-Autostart-enabled=true
-Name[en_GB]=Music Player
-Name=Music Player
-Comment[en_GB]=
-Comment=
-'>/home/sol1004/.config/autostart/LCDClient.jar.desktop
+# Add the .config configuration files
+if [ ! -d /home/sol1004 ]
+then
+	mkdir -p /home/sol1004
+	chown sol1004:sol1004 /home/sol1004
+fi
+
+echo "DEBUG: Done /home/sol1004" >>/home/sol1004/postlog.txt
+
+# Set autologon
+echo "[base]
+autologin=sol1004
+greeter=/usr/libexec/lxdm-greeter-gtk
+[server]
+arg=/usr/bin/X -background none vt1
+[display]
+gtk_theme=Clearlooks
+bg=/usr/share/backgrounds/default.png
+bottom_pane=1
+lang=1
+keyboard=0
+theme=Industrial
+[input]
+disable=0
+white=
+black=
+">/etc/lxdm/lxdm.conf
+chmod 640 /etc/lxdm/lxdm.conf
+chown root:root /etc/lxdm/lxdm.conf
+
+echo "DEBUG: /etc/lxdm/lxdm.conf done" >>/home/sol1004/postlog.txt
 
 #echo '[Desktop Entry]
 #Type=Application
@@ -1102,33 +1113,6 @@ Comment=
 #Comment[en_GB]=
 #Comment=
 #'>/home/sol1004/.config/autostart/TeamViewer.desktop
-
-echo '[Desktop Entry]
-Type=Application
-Exec=/usr/bin/xset s off; /usr/bin/xset -dpms
-Hidden=true
-X-GNOME-Autostart-enabled=true
-Name[en_GB]=Disable X Screensaver
-Name=Disable X Screensaver
-'>/home/sol1004/.config/autostart/DisableScreen.desktop
-
-# Set the desktop to the sollin background
-echo '[Desktop Entry]
-Type=Application
-Exec=/usr/bin/gsettings set org.gnome.desktop.background picture-uri file:///home/sol1004/Sollin_desktop.bmp
-Hidden=true
-X-GNOME-Autostart-enabled=true
-Name=Background
-Comment[en_GB]=BackgroundSetting
-Comment=
-'>/home/sol1004/.config/autostart/Background.desktop
-
-# Set desktop directory for sol1004
-if [ ! -d /home/sol1004/Desktop ]
-then
-	mkdir -p /home/sol1004/Desktop
-fi
-chown sol1004:sol1004 /home/sol1004/Desktop
 
 # Configure ftp connectivity
 echo 'machine ftp.sollin.co.uk login oneftp password oneftp2011' >/root/.netrc
@@ -1156,12 +1140,13 @@ chown -R sol1004:sol1004 /home/sol1004
 ' >/bin/update-sollin
 chmod +x /bin/update-sollin
 
+echo "DEBUG: FTP config done" >>/home/sol1004/postlog.txt
+
 # Configure the Update CD insert cron job
 if [ ! -d /home/sol1004/bin ]
 then
 	mkdir /home/sol1004/bin
 fi
-
 echo '#!/bin/bash
 if [[ -d /media/Update ]]
 then
@@ -1190,6 +1175,8 @@ chmod +x /etc/init.d/rmsollintmp
 cd /etc/rc5.d
 ln -s ../init.d/rmsollintmp S90rmsollintmp
 
+echo "DEBUG: Update CD and cron done" >>/home/sol1004/postlog.txt
+
 # Disable unnecessary services
 chkconfig NetworkManager off
 chkconfig ipsec off
@@ -1215,10 +1202,86 @@ chkconfig libvirtd off
 chkconfig lvm2-lvmetad off
 chkconfig vmtoolsd off
 
+echo "DEBUG: Services off" >>/home/sol1004/postlog.txt
+
 # Set up the LCD device and sound card for java
 mkdir /tmp/mycd
 mount -t iso9660 /dev/sr0 /tmp/mycd
-#cp -r /tmp/mycd/home/sol1004 /home
+# Need to be more specific about copying the home dir, as don't want to overwrite existing Sollin
+
+echo "DEBUG: Mounted CDrom" >>/home/sol1004/postlog.txt
+
+cp -f /tmp/mycd/home/sol1004/.xscreensaver /home/sol1004/
+chown sol1004:sol1004 /home/sol1004/.xscreensaver
+
+# Copy .confg
+if test -d /home/sol1004/.config
+then
+	rm -rf /home/sol1004/.config 2>>/home/sol1004/postlog.txt
+fi
+cp -rf /tmp/mycd/home/sol1004/.config /home/sol1004/
+echo "DEBUG: Copied .config" >>/home/sol1004/postlog.txt
+if test -d /home/sol1004/.gconf
+then
+	rm -rf /home/sol1004/.gconf 2>>/home/sol1004/postlog.txt
+fi
+cp -fr /tmp/mycd/home/sol1004/.gconf /home/sol1004
+echo "DEBUG: Copied .gconf" >>/home/sol1004/postlog.txt
+#if test -d /home/sol1004/.gnome2
+	#rm -rf /home/sol1004/.gnome2 2>>/home/sol1004/postlog.txt
+#fi
+#cp -fr /tmp/mycd/home/sol1004/.gnome2 /home/sol1004 2>>/home/sol1004/postlog.txt
+#echo "DEBUG: Copied .gnome2" >>/home/sol1004/postlog.txt
+cp -f /tmp/mycd/home/sol1004/Sollin_desktop.bmp /home/sol1004/Sollin_desktop.bmp 2>>/home/sol1004/postlog.txt
+
+echo "DEBUG: Done .config, .gconf, .gnome2 dirs" >>/home/sol1004/postlog.txt
+
+mkdir -p /home/sol1004/.config/autostart
+chown -R sol1004:sol1004 /home/sol1004/.config
+echo '[Desktop Entry]
+Type=Application
+Exec=/usr/bin/java -Xincgc -Dlog4j.configuration=file:///home/sol1004/conf/log4j.xml -jar /home/sol1004/LCDClient.jar
+#Exec=/usr/java/default/bin/java -Xincgc -Dlog4j.configuration=file:///home/sol1004/conf/log4j.xml -jar /home/sol1004/LCDClient.jar
+Hidden=false
+X-GNOME-Autostart-enabled=true
+Name[en_GB]=Music Player
+Name=Music Player
+Comment[en_GB]=
+Comment=
+'>/home/sol1004/.config/autostart/LCDClient.jar.desktop
+
+echo '[Desktop Entry]
+Type=Application
+Exec=/usr/bin/xset s off; /usr/bin/xset -dpms
+Hidden=true
+X-GNOME-Autostart-enabled=true
+Name[en_GB]=Disable X Screensaver
+Name=Disable X Screensaver
+'>/home/sol1004/.config/autostart/DisableScreen.desktop
+
+# Set the desktop to the sollin background
+echo '[Desktop Entry]
+Type=Application
+Exec=/usr/bin/gsettings set org.gnome.desktop.background picture-uri file:///home/sol1004/Sollin_desktop.bmp
+Hidden=true
+X-GNOME-Autostart-enabled=true
+Name=Background
+Comment[en_GB]=BackgroundSetting
+Comment=
+'>/home/sol1004/.config/autostart/Background.desktop
+
+echo "DEBUG: Written autostart files" >>/home/sol1004/postlog.txt
+
+# Set desktop directory for sol1004
+if [ ! -d /home/sol1004/Desktop ]
+then
+	mkdir -p /home/sol1004/Desktop
+fi
+chown sol1004:sol1004 /home/sol1004/Desktop
+
+echo "DEBUG: Created Desktop dir" >>/home/sol1004/postlog.txt
+
+
 chown -R sol1004:sol1004 /home/sol1004/tracks
 cp /usr/lib/jvm/java-1.7.0-openjdk-1.7.0.25.x86_64/jre/lib/i386/libpulse-java.so /usr/java/jre1.6.0_20/lib/i386/libpulse-java.so
 cp /usr/lib/jvm/java-1.7.0-openjdk-1.7.0.25.x86_64/jre/lib/ext/pulse-java.jar /usr/java/jre1.6.0_20/lib/ext/pulse.java.jar
@@ -1226,6 +1289,8 @@ mv /usr/java/jre1.6.0_20/lib/i386/libjsoundalsa.so /usr/java/jre1.6.0_20/lib/i38
 cp /tmp/mycd/home/sol1004/essentialJavaFiles/RXTXcomm.jar /usr/java/jre1.6.0_20/lib/ext
 ln -s /usr/lib/rxtx/librxtxSerial.so /usr/java/jre1.6.0_20/lib/i386/librxtxSerial.so
 chown root:root /usr/java/jre1.6.0_20/lib/i386/librxtxSerial.so /usr/java/jre1.6.0_20/lib/ext/RXTXcomm.jar
+
+echo "DEBUG: Copied relevant java pieces" >>/home/sol1004/postlog.txt
 
 # Configure sol1004 home directory and application
 chown -R sol1004:sol1004 /home/sol1004
@@ -1247,14 +1312,30 @@ chmod 755 /home/sol1004/tmp
 chmod 700 /home/sol1004/tracks
 chmod 755 /home/sol1004/tracks/*
 
+echo "DEBUG: Set permissions on /home/sol1004" >>/home/sol1004/postlog.txt
+
 # Set the sound card audio state (need to add this as a place holder)
-#cp -f /tmp/mycd/home/sol1004/essentialJavaFiles/asound.state /etc
 cp -f /tmp/mycd/audio/asound.state.AUDIOTYPE /etc/asound.state
 chown root:root /etc/asound.state
 chmod 644 /etc/asound.state
 
+echo "DEBUG: Set asound" >>/home/sol1004/postlog.txt
+
 # Configure the sol1004 user environment and disable tracker
-echo "PATH=/usr/java/default/bin:$PATH:$HOME/bin
+echo '# .bash_profile
+
+# Get the aliases and functions
+if [ -f ~/.bashrc ]; then
+	. ~/.bashrc
+fi
+
+# User specific environment and startup programs
+
+PATH=$PATH:$HOME/.local/bin:$HOME/bin
+
+export PATH
+
+PATH=/usr/java/default/bin:$PATH
 JAVA_HOME=/usr/java/default/bin/java
 CLASSPATH=.
 LD_LIBRARY_PATH=/usr/lib/rxtx
@@ -1278,13 +1359,17 @@ fi
 # Set the sound level for the relevant alsa file
 alsactl restore -f /etc/asound.state
 
-export PATH JAVA_HOME LD_LIBRARY_PATH CLASSPATH" >>/home/sol1004/.bash_profile
+export PATH JAVA_HOME LD_LIBRARY_PATH CLASSPATH' >/home/sol1004/.bash_profile
+
+echo "DEBUG: Done .profile" >>/home/sol1004/postlog.txt
 
 # Set java sound properties
 echo "javax.sound.sampled.Clip=org.classpath.icedtea.pulseaudio.PulseAudioMixerProvider
 javax.sound.sampled.Port=org.classpath.icedtea.pulseaudio.PulseAudioMixerProvider
 javax.sound.sampled.SourceDataLine=org.classpath.icedtea.pulseaudio.PulseAudioMixerProvider
 javax.sound.sampled.TargetDataLine=org.classpath.icedtea.pulseaudio.PulseAudioMixerProvider" >> /usr/java/jre1.6.0_20/lib/sound.properties
+
+echo "DEBUG: Java sound propertied" >>/home/sol1004/postlog.txt
 
 #umount /tmp/mycd 
 # Since Fedora 17 the eject option in kickstart no longer works

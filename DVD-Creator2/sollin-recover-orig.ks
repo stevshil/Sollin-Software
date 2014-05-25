@@ -20,7 +20,7 @@ part / --fstype=ext3 --usepart sda1
 part swap --usepart sda2
 part /home --fstype=ext3 --usepart sda3 --noformat
 
-reboot --eject
+#reboot --eject
 
 %packages --ignoremissing
 lxappearance

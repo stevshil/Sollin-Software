@@ -20,7 +20,7 @@ part / --fstype=ext3 --usepart sda1
 part swap --usepart sda2
 part /home --fstype=ext3 --usepart sda3 --noformat
 
-#reboot --eject
+reboot --eject
 
 %packages --ignoremissing
 lxappearance
@@ -1352,7 +1352,7 @@ fi
 /usr/bin/gsettings set org.gnome.desktop.background picture-uri file:///home/sol1004/Sollin_desktop.bmp
 /usr/bin/gsettings set org.gnome.desktop.screensaver lock-enabled false
 /usr/bin/gsettings set org.gnome.desktop.lockdown disable-lock-screen true
-/usr/bin/gsettings set org.gnome.settings-daemon.plugins.power button-power 'shutdown'
+/usr/bin/gsettings set org.gnome.settings-daemon.plugins.power button-power \'shutdown\'
 /usr/bin/gsettings set org.gnome.desktop.screensaver idle-activation-enabled false
 /usr/bin/gsettings set org.gnome.desktop.session idle-delay 0
 

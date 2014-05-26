@@ -20,7 +20,7 @@ part / --fstype=ext3 --usepart sda1
 part swap --usepart sda2
 part /home --fstype=ext3 --usepart sda3 --noformat
 
-reboot --eject
+#reboot --eject
 
 %packages --ignoremissing
 lxappearance
@@ -1071,15 +1071,6 @@ echo "sol1004 ALL=	NOPASSWD: /home/sol1004/bin/chkupdate" >>/etc/sudoers
 
 echo "DEBUG: Written /etc/sudoers" >>/home/sol1004/postlog.txt
 
-# Add the .config configuration files
-if [ ! -d /home/sol1004 ]
-then
-	mkdir -p /home/sol1004
-	chown sol1004:sol1004 /home/sol1004
-fi
-
-echo "DEBUG: Done /home/sol1004" >>/home/sol1004/postlog.txt
-
 # Set autologon
 echo "[base]
 autologin=sol1004
@@ -1142,8 +1133,17 @@ chmod +x /bin/update-sollin
 
 echo "DEBUG: FTP config done" >>/home/sol1004/postlog.txt
 
+# Add the .config configuration files
+if test ! -d /home/sol1004
+then
+	mkdir -p /home/sol1004
+	chown sol1004:sol1004 /home/sol1004
+fi
+
+echo "DEBUG: Done /home/sol1004" >>/home/sol1004/postlog.txt
+
 # Configure the Update CD insert cron job
-if [ ! -d /home/sol1004/bin ]
+if test ! -d /home/sol1004/bin
 then
 	mkdir /home/sol1004/bin
 fi
@@ -1172,8 +1172,10 @@ case "$1" in
 esac
 exit 0' >/etc/init.d/rmsollintmp
 chmod +x /etc/init.d/rmsollintmp
+OPW=$PWD
 cd /etc/rc5.d
 ln -s ../init.d/rmsollintmp S90rmsollintmp
+cd $OPW
 
 echo "DEBUG: Update CD and cron done" >>/home/sol1004/postlog.txt
 
@@ -1234,28 +1236,24 @@ echo "DEBUG: Copied .gconf" >>/home/sol1004/postlog.txt
 #echo "DEBUG: Copied .gnome2" >>/home/sol1004/postlog.txt
 cp -f /tmp/mycd/home/sol1004/Sollin_desktop.bmp /home/sol1004/Sollin_desktop.bmp 2>>/home/sol1004/postlog.txt
 
-echo "DEBUG: Done .config, .gconf, .gnome2 dirs" >>/home/sol1004/postlog.txt
+echo "DEBUG: Done .config, .gconf dirs" >>/home/sol1004/postlog.txt
 
 mkdir -p /home/sol1004/.config/autostart
 chown -R sol1004:sol1004 /home/sol1004/.config
 echo '[Desktop Entry]
 Type=Application
 Exec=/usr/bin/java -Xincgc -Dlog4j.configuration=file:///home/sol1004/conf/log4j.xml -jar /home/sol1004/LCDClient.jar
-#Exec=/usr/java/default/bin/java -Xincgc -Dlog4j.configuration=file:///home/sol1004/conf/log4j.xml -jar /home/sol1004/LCDClient.jar
 Hidden=false
+Comment=Sollin Media Player
 X-GNOME-Autostart-enabled=true
-Name[en_GB]=Music Player
-Name=Music Player
-Comment[en_GB]=
-Comment=
-'>/home/sol1004/.config/autostart/LCDClient.jar.desktop
+Name=Sollin Music Player
+'>/home/sol1004/.config/autostart/LCDClient.desktop
 
 echo '[Desktop Entry]
 Type=Application
 Exec=/usr/bin/xset s off; /usr/bin/xset -dpms
 Hidden=true
 X-GNOME-Autostart-enabled=true
-Name[en_GB]=Disable X Screensaver
 Name=Disable X Screensaver
 '>/home/sol1004/.config/autostart/DisableScreen.desktop
 
@@ -1266,14 +1264,13 @@ Exec=/usr/bin/gsettings set org.gnome.desktop.background picture-uri file:///hom
 Hidden=true
 X-GNOME-Autostart-enabled=true
 Name=Background
-Comment[en_GB]=BackgroundSetting
-Comment=
+Comment=Background Wallpaper
 '>/home/sol1004/.config/autostart/Background.desktop
 
 echo "DEBUG: Written autostart files" >>/home/sol1004/postlog.txt
 
 # Set desktop directory for sol1004
-if [ ! -d /home/sol1004/Desktop ]
+if test ! -d /home/sol1004/Desktop
 then
 	mkdir -p /home/sol1004/Desktop
 fi
@@ -1352,7 +1349,7 @@ fi
 /usr/bin/gsettings set org.gnome.desktop.background picture-uri file:///home/sol1004/Sollin_desktop.bmp
 /usr/bin/gsettings set org.gnome.desktop.screensaver lock-enabled false
 /usr/bin/gsettings set org.gnome.desktop.lockdown disable-lock-screen true
-/usr/bin/gsettings set org.gnome.settings-daemon.plugins.power button-power \'shutdown\'
+/usr/bin/gsettings set org.gnome.settings-daemon.plugins.power button-power "shutdown"
 /usr/bin/gsettings set org.gnome.desktop.screensaver idle-activation-enabled false
 /usr/bin/gsettings set org.gnome.desktop.session idle-delay 0
 

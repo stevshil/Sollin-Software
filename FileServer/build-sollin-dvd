@@ -93,7 +93,7 @@ sed -i "s/AUDIOTYPE/$AUDIO/" $DVDDIR/sollin-recover.ks
 cp isolinux-install.cfg $DVDDIR/isolinux/isolinux.cfg
 cd $DVDDIR
 mkisofs -o $OUTPUTDIR/${isoname}-install.iso -b isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot -boot-load-size 4 -joliet-long -boot-info-table -J -R -V "Sollin Install Disk" .
-	cd ..
+cd ..
 	
 # Build the recovery DVD
 cp isolinux-recover.cfg $DVDDIR/isolinux/isolinux.cfg

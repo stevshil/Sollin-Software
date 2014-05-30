@@ -1038,7 +1038,7 @@ javapackages-tools
 tzdata-java
 %end
 
-%post
+%post --erroronfail
 echo "Post log started `date`">/home/sol1004/postlog.txt
 # Set power button no delay shutdown
 echo "PATH=/sbin:/usr/sbin:/bin:/usr/bin
@@ -1133,20 +1133,16 @@ chmod +x /bin/update-sollin
 
 echo "DEBUG: FTP config done" >>/home/sol1004/postlog.txt
 
-# Add the .config configuration files
-if test ! -d /home/sol1004
-then
-	mkdir -p /home/sol1004
-	chown sol1004:sol1004 /home/sol1004
-fi
+chown sol1004:sol1004 /home/sol1004
 
-echo "DEBUG: Done /home/sol1004" >>/home/sol1004/postlog.txt
+echo "DEBUG: Done /home/sol1004 permissions" >>/home/sol1004/postlog.txt
 
 # Configure the Update CD insert cron job
 if test ! -d /home/sol1004/bin
 then
 	mkdir /home/sol1004/bin
 fi
+
 echo '#!/bin/bash
 if [[ -d /media/Update ]]
 then

@@ -1,0 +1,43 @@
+#!/bin/bash
+
+cd /home/sol1004
+
+for builddir in /builds/*
+do
+	if [ ! -e $builddir/cli-options.txt ]
+	then
+		echo "ERROR: No options file for $builddir"
+		echo "Skipping this configuration"
+		continue
+	else
+		. $builddir/cli-options.txt
+		# File format;
+		# net=dhcp
+		# sound=Intel
+		# tzname=Europe/London
+	fi
+
+	# Set the name of the iso files
+	isoname=$(basename $builddir)
+
+	# if NSfile exists then read in contents to set variables for network
+	if [ -e $builddir/NSfile ]
+	then
+		# File format is;
+		# IP=192.168.11.1
+		# NM=255.255.255.0
+		# GW=192.168.11.254
+		# NS=192.168.11.254
+		. $builddir/NSfile
+	fi
+
+	# Remove the current directory details and copy in new ones
+	rm -rf conf tracks playlists
+	cp -r $builddir/* .
+
+	# Build the ISOs
+	./build-sollin-dvd $net $sound $isoname $tzname
+
+	# unset the NSfile variables
+	unset IP NM GW NS net sound tzname isoname
+done

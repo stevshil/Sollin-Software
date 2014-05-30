@@ -1,80 +1,49 @@
 #!/bin/bash
-# Get working Dir
-BUILDDIR=$HOME/Documents/projects/jerome-mediasys/Sollin/Sollin-Software/DVD-Creator2
-if [ -d $BUILDDIR ]
-then
 
-	OUTPUTDIR=$HOME/Documents/projects/jerome-mediasys/Sollin/ISOs
-	PARTROOT="part / --fstype=ext3 --size=14000 --asprimary"
-	PARTSWAP="part swap --size=512 --asprimary"
+BUILDDIR=$HOME/Sollin/Sollin-Software/DVD-Creator2
+OUTPUTDIR=$HOME/Sollin/ISOs
+PARTROOT="part / --fstype=ext3 --size=20000 --asprimary"
+PARTSWAP="part swap --size=20000 --asprimary"
 
-else
-
-	BUILDDIR=$HOME/Sollin/Sollin-Software/DVD-Creator2
-	OUTPUTDIR=$HOME/Sollin/ISOs
-	PARTROOT="part / --fstype=ext3 --size=20000 --asprimary"
-	PARTSWAP="part swap --size=20000 --asprimary"
-
-fi
 SERVERIP=`ifconfig eth0 | grep 'inet addr' | sed -e 's/^.*addr://' -e 's/  Bcast.*//'`
 DVDDIR=$BUILDDIR/DVD
 
-echo "Format of timezone is directory/city"
-echo "See /usr/share/zoneinfo directory for full list"
-echo "Examples:
-Europe/London
-Europe/Amsterdam
-Europe/Dublin
-Europe/Madrid
-Europe/Paris
-Europe/Budapest
-America/New_York
-America/Toronto
-America/Vancouver
-Asia/Hong_Kong
-Asia/Istanbul
-Asia/Jakarta
-Asia/Tokyo
-Canada/Eastern
-Canada/Mountain
-Canada/Pacific
-Australia/West
-Australia/South"
-echo -n "Enter valid time zone (Europe/London is default): "
-read TIMEZONE
+NETTYPE=$1
+	# Values are  dhcp, nonet, file
+AUDIO=$2
+	# Values are Intel, NVidia, V8235
+isoname="$3"
+	# Comes from the automated script directories
+tz="$4"
+# Timezones for $4 are
+#Europe/London
+#Europe/Amsterdam
+#Europe/Dublin
+#Europe/Madrid
+#Europe/Paris
+#Europe/Budapest
+#America/New_York
+#America/Toronto
+#America/Vancouver
+#Asia/Hong_Kong
+#Asia/Istanbul
+#Asia/Jakarta
+#Asia/Tokyo
+#Canada/Eastern
+#Canada/Mountain
+#Canada/Pacific
+#Australia/West
+#Australia/South"
+
 if [[ -z $TIMEZONE ]]
 then
 	TIMEZONE="Europe/London"
-fi
-echo "TIMEZONE is $TIMEZONE"
-
-if (( $# == 0 ))
-then
-	# Ask the user for their static network configuration
-	echo -n "Enter IP address for system: "
-	read IP
-	echo -n "Enter Netmask for system: "
-	read NM
-	echo -n "Enter Gateway/router for system: "
-	read GW
-	echo -n "Enter (comma separated list) of DNS servers: "
-	read NS
-	echo -n "Select audio type (Intel,NVidia,V8235): "
-	read AUDIO
-else
-	if [[ $1 != 'dhcp' && $1 != 'nonet' ]]
-	then
-		# Use the specified file
-		. $1
-	fi
-        # Need to set audio too
-	AUDIO=$2
 fi
 
 cd $BUILDDIR
 
 # Deal with network settings
-if [[ $1 == 'dhcp' ]]
+if [[ $NETTYPE == 'dhcp' ]]
 then
 	cp $BUILDDIR/sollin-install-orig.ks $DVDDIR/sollin-install.ks
 	cp $BUILDDIR/sollin-recover-orig.ks $DVDDIR/sollin-recover.ks
@@ -82,7 +51,7 @@ then
 	sed -e "s,^timezone --utc.*$,timezone --utc $TIMEZONE," -e "s/NAMESERVERS//" $DVDDIR/sollin-recover.ks > $DVDDIR/sollin-recover2.ks
 	mv $DVDDIR/sollin-install2.ks $DVDDIR/sollin-install.ks
 	mv $DVDDIR/sollin-recover2.ks $DVDDIR/sollin-recover.ks
-elif [[ $1 == 'nonet' ]]
+elif [[ $NETTYPE == 'nonet' ]]
 then
 	sed -e's/^network --device.*$//' -e 's/NAMESERVERS//' $BUILDDIR/sollin-install-orig.ks >$DVDDIR/sollin-install.ks
 	sed -e 's/^network --device.*$//' -e 's/NAMESERVERS//' $BUILDDIR/sollin-recover-orig.ks >$DVDDIR/sollin-recover.ks
@@ -120,25 +89,14 @@ sed -i "s,^PARTSWAP,$PARTSWAP," $DVDDIR/sollin-recover.ks
 sed -i "s/AUDIOTYPE/$AUDIO/" $DVDDIR/sollin-install.ks
 sed -i "s/AUDIOTYPE/$AUDIO/" $DVDDIR/sollin-recover.ks
 
-# Build network install kickstart file
-sed -e "s,^cdrom,url --url=http://$SERVERIP/Install/Sollin\nnetwork --activate --device=eth0 --bootproto dhcp --hostname=sollin.localdomain," -e 's/^reboot --eject/xconfig --startxonboot\nreboot --eject/' -e "s!^mount -t iso9660 /dev/sr0!mount -t nfs $SERVERIP:/home/web-apps/LinuxImgs/Sollin!" $DVDDIR/sollin-install.ks >$DVDDIR/sollin-web-install.ks
-
-if [[ $3 != "nodvd" ]]
-then 
-	if [[ $LOGNAME != 'steve' ]]
-	then
-	# Build the fresh installation DVD
-	cp isolinux-install.cfg $DVDDIR/isolinux/isolinux.cfg
-	cd $DVDDIR
-	mkisofs -o $OUTPUTDIR/sollin-install.iso -b isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot -boot-load-size 4 -joliet-long -boot-info-table -J -R -V "Sollin Install Disk" .
+# Build the fresh installation DVD
+cp isolinux-install.cfg $DVDDIR/isolinux/isolinux.cfg
+cd $DVDDIR
+mkisofs -o $OUTPUTDIR/${isoname}-install.iso -b isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot -boot-load-size 4 -joliet-long -boot-info-table -J -R -V "Sollin Install Disk" .
 	cd ..
-	fi
 	
-	#if [[ $LOGNAME != 'steve' ]]
-	#then
-		# Build the recovery DVD
-		cp isolinux-recover.cfg $DVDDIR/isolinux/isolinux.cfg
-		cd $DVDDIR
-		mkisofs -o $OUTPUTDIR/sollin-recovery.iso -b isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot -boot-load-size 4 -joliet-long -boot-info-table -J -R -V "Sollin Recovery Disk" .
-	#fi
+# Build the recovery DVD
+cp isolinux-recover.cfg $DVDDIR/isolinux/isolinux.cfg
+cd $DVDDIR
+mkisofs -o $OUTPUTDIR/${isoname}-recovery.iso -b isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot -boot-load-size 4 -joliet-long -boot-info-table -J -R -V "Sollin Recovery Disk" .
 fi

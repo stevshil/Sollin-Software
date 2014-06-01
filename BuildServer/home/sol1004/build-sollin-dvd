@@ -1,0 +1,102 @@
+#!/bin/bash
+
+BUILDDIR=$HOME/Sollin/Sollin-Software/DVD-Creator2
+OUTPUTDIR=$HOME/Sollin/ISOs
+PARTROOT="part / --fstype=ext3 --size=20000 --asprimary"
+PARTSWAP="part swap --size=20000 --asprimary"
+
+SERVERIP=`ifconfig eth0 | grep 'inet addr' | sed -e 's/^.*addr://' -e 's/  Bcast.*//'`
+DVDDIR=$BUILDDIR/DVD
+
+NETTYPE=$1
+	# Values are  dhcp, nonet, file
+AUDIO=$2
+	# Values are Intel, NVidia, V8235
+isoname="$3"
+	# Comes from the automated script directories
+tz="$4"
+# Timezones for $4 are
+#Europe/London
+#Europe/Amsterdam
+#Europe/Dublin
+#Europe/Madrid
+#Europe/Paris
+#Europe/Budapest
+#America/New_York
+#America/Toronto
+#America/Vancouver
+#Asia/Hong_Kong
+#Asia/Istanbul
+#Asia/Jakarta
+#Asia/Tokyo
+#Canada/Eastern
+#Canada/Mountain
+#Canada/Pacific
+#Australia/West
+#Australia/South"
+
+if [[ -z $TIMEZONE ]]
+then
+	TIMEZONE="Europe/London"
+fi
+
+cd $BUILDDIR
+
+# Deal with network settings
+if [[ $NETTYPE == 'dhcp' ]]
+then
+	cp $BUILDDIR/sollin-install-orig.ks $DVDDIR/sollin-install.ks
+	cp $BUILDDIR/sollin-recover-orig.ks $DVDDIR/sollin-recover.ks
+	sed -e "s,^timezone --utc.*$,timezone --utc $TIMEZONE," -e "s/NAMESERVERS//" $DVDDIR/sollin-install.ks > $DVDDIR/sollin-install2.ks
+	sed -e "s,^timezone --utc.*$,timezone --utc $TIMEZONE," -e "s/NAMESERVERS//" $DVDDIR/sollin-recover.ks > $DVDDIR/sollin-recover2.ks
+	mv $DVDDIR/sollin-install2.ks $DVDDIR/sollin-install.ks
+	mv $DVDDIR/sollin-recover2.ks $DVDDIR/sollin-recover.ks
+elif [[ $NETTYPE == 'nonet' ]]
+then
+	sed -e's/^network --device.*$//' -e 's/NAMESERVERS//' $BUILDDIR/sollin-install-orig.ks >$DVDDIR/sollin-install.ks
+	sed -e 's/^network --device.*$//' -e 's/NAMESERVERS//' $BUILDDIR/sollin-recover-orig.ks >$DVDDIR/sollin-recover.ks
+	sed "s,^timezone --utc.*$,timezone --utc $TIMEZONE," $DVDDIR/sollin-install.ks > $DVDDIR/sollin-install2.ks
+	sed "s,^timezone --utc.*$,timezone --utc $TIMEZONE," $DVDDIR/sollin-recover.ks > $DVDDIR/sollin-recover2.ks
+	mv $DVDDIR/sollin-install2.ks $DVDDIR/sollin-install.ks
+	mv $DVDDIR/sollin-recover2.ks $DVDDIR/sollin-recover.ks
+	sed 's,retry 60;" >>/etc/dhclient-eth0.conf,retry 60;" >>/etc/dhclient-eth0.conf\necho "DEVICE=eth0\nBOOTPROTO=dhcp\nONBOOT=no\nNOZEROCONF=yes\nNM_CONTROLLED=no\nTYPE=Ethernet" >/etc/sysconfig/network-scripts/ifcfg-eth0,' $DVDDIR/sollin-install.ks > $DVDDIR/sollin-install2.ks
+	sed 's,retry 60;" >>/etc/dhclient-eth0.conf,retry 60;" >>/etc/dhclient-eth0.conf\necho "DEVICE=eth0\nBOOTPROTO=dhcp\nONBOOT=no\nNOZEROCONF=yes\nNM_CONTROLLED=no\nTYPE=Ethernet" >/etc/sysconfig/network-scripts/ifcfg-eth0,' $DVDDIR/sollin-recover.ks > $DVDDIR/sollin-recover2.ks
+	mv $DVDDIR/sollin-install2.ks $DVDDIR/sollin-install.ks
+	mv $DVDDIR/sollin-recover2.ks $DVDDIR/sollin-recover.ks
+else
+	# Set the nameserver lines correctly
+	NAMES=$(echo $NS | sed 's/^/nameserver /')
+	NAMES=$(echo $NAMES | sed 's/,/,nameserver /g')
+	NAMES=$(echo $NAMES | sed 's/,/\\n/g')
+	# Create the network settings for the install DVD
+	sed "s/^network --device.*$/network --device=eth0 --bootproto=static --ip=$IP --netmask=$NM --gateway=$GW --nameserver=$NS/" $BUILDDIR/sollin-install-orig.ks > $DVDDIR/sollin-install.ks
+	sed -e "s,^timezone --utc.*$,timezone --utc $TIMEZONE," -e "s,NAMESERVERS,echo '$NAMES'>/etc/resolv.conf," $DVDDIR/sollin-install.ks > $DVDDIR/sollin-install2.ks
+	mv $DVDDIR/sollin-install2.ks $DVDDIR/sollin-install.ks
+
+	# Create network settings for the recovery DVD
+	sed "s/^network --device.*$/network --device=eth0 --bootproto=static --ip=$IP --netmask=$NM --gateway=$GW --nameserver=$NS/" $BUILDDIR/sollin-recover-orig.ks > $DVDDIR/sollin-recover.ks
+	sed -e "s,^timezone --utc.*$,timezone --utc $TIMEZONE," -e "s,NAMESERVERS,echo '$NAMES'>/etc/resolv.conf," $DVDDIR/sollin-recover.ks > $DVDDIR/sollin-recover2.ks
+	mv $DVDDIR/sollin-recover2.ks $DVDDIR/sollin-recover.ks
+fi
+
+# Configure partitioning
+sed -i "s,^PARTROOT,$PARTROOT," $DVDDIR/sollin-install.ks
+sed -i "s,^PARTSWAP,$PARTSWAP," $DVDDIR/sollin-install.ks
+sed -i "s,^PARTROOT,$PARTROOT," $DVDDIR/sollin-recover.ks
+sed -i "s,^PARTSWAP,$PARTSWAP," $DVDDIR/sollin-recover.ks
+
+# Set Audio file
+sed -i "s/AUDIOTYPE/$AUDIO/" $DVDDIR/sollin-install.ks
+sed -i "s/AUDIOTYPE/$AUDIO/" $DVDDIR/sollin-recover.ks
+
+# Build the fresh installation DVD
+cp isolinux-install.cfg $DVDDIR/isolinux/isolinux.cfg
+cd $DVDDIR
+mkisofs -o $OUTPUTDIR/${isoname}-install.iso -b isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot -boot-load-size 4 -joliet-long -boot-info-table -J -R -V "Sollin Install Disk" .
+cd ..
+	
+# Build the recovery DVD
+cp isolinux-recover.cfg $DVDDIR/isolinux/isolinux.cfg
+cd $DVDDIR
+mkisofs -o $OUTPUTDIR/${isoname}-recovery.iso -b isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot -boot-load-size 4 -joliet-long -boot-info-table -J -R -V "Sollin Recovery Disk" .
+fi

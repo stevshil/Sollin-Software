@@ -1,0 +1,1 @@
+mkisofs -o ../buildserver-install.iso -b isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot -boot-load-size 4 -joliet-long -boot-info-table -J -R -V "SollinBuildServer" .

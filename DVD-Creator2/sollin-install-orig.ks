@@ -1045,13 +1045,6 @@ tzdata-java
 echo "PATH=/sbin:/usr/sbin:/bin:/usr/bin
 shutdown -h now" >/etc/acpi/actions/power.sh
 
-# Enable sol1004 automatic logon
-echo "# gdm automatic login configuration
-[daemon]
-AutomaticLoginEnable=true
-AutomaticLogin=sol1004
-">>/etc/gdm/custom.conf
-
 # Set DHCP timeout if cable not connected
 echo "timeout 60
 retry 60;" >>/etc/dhclient-eth0.conf

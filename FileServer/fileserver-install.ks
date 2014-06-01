@@ -1,13 +1,11 @@
 install
 cdrom
 lang en_GB.UTF-8
-#keyboard --xlayouts=us
-keyboard uk
+keyboard --xlayouts=us
 network --bootproto=dhcp --hostname=sollin.localdomain --onboot=yes
 rootpw  --iscrypted $6$tWTxixNd$D5UuZXbiRBNhxyYKXVGWDvI6ZK4pIMghNUB6V.NRqmdzIjWAe9w9g3u3vCDhtek7om892tQVZUxBejA7Kov/F1
 
 firstboot --disable
-#firewall --enabled --service=ssh
 firewall --disabled
 authconfig --enableshadow --passalgo=sha512
 selinux --disabled
@@ -1124,7 +1122,7 @@ NAME=enp0s3
 ONBOOT=yes
 PEERDNS=no
 PEERROUTES=yes
-IPADDR=192.168.10.80
+IPADDR=192.168.10.30
 NETMASK=255.255.255.0" >/etc/sysconfig/network-scripts/ifcfg-enp0s3
 
 # Make sol1004 sudo administrator

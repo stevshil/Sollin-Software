@@ -1070,13 +1070,6 @@ guest account = nobody
         guest ok = yes
         public = yes' >/etc/samba/smb.conf
 
-# Enable sol1004 automatic logon
-echo "# gdm automatic login configuration
-[daemon]
-AutomaticLoginEnable=true
-AutomaticLogin=sol1004
-">>/etc/gdm/custom.conf
-
 # Set Network Address
 echo "TYPE=Ethernet
 BOOTPROTO=none
@@ -1113,6 +1106,9 @@ black=
 ">/etc/lxdm/lxdm.conf
 chmod 640 /etc/lxdm/lxdm.conf
 chown root:root /etc/lxdm/lxdm.conf
+
+mkdir /home/sol1004/autostart
+chown sol1004:sol1004 /home/sol1004/autostart
 
 echo '[Desktop Entry]
 Type=Application

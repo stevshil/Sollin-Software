@@ -1159,6 +1159,7 @@ cp -f /tmp/mycd/home/sol1004/.xscreensaver /home/sol1004/
 chown sol1004:sol1004 /home/sol1004/.xscreensaver
 
 cp -r /tmp/mycd/home/sol1004/DVD-Creator2 /home/sol1004
+chown -R sol1004:sol1004 /home/sol1004/
 
 cp /usr/lib/jvm/java-1.7.0-openjdk-1.7.0.25.x86_64/jre/lib/i386/libpulse-java.so /usr/java/jre1.6.0_20/lib/i386/libpulse-java.so
 cp /usr/lib/jvm/java-1.7.0-openjdk-1.7.0.25.x86_64/jre/lib/ext/pulse-java.jar /usr/java/jre1.6.0_20/lib/ext/pulse.java.jar
@@ -1175,21 +1176,6 @@ cp /tmp/mycd/home/sol1004/make-sollin-isos /home/sol1004
 chown -R sol1004:sol1004 /home/sol1004
 chgrp lock /var/lock
 chmod 775 /var/lock
-chmod 755 /home/sol1004/audit
-chmod 644 /home/sol1004/audit/*
-chmod 700 /home/sol1004/conf
-chmod 755 /home/sol1004/conf/*
-chmod 700 /home/sol1004/download3
-chmod 755 /home/sol1004/LCDClient.jar
-chmod 700 /home/sol1004/lib
-chmod 755 /home/sol1004/lib/*
-chmod 755 /home/sol1004/logs
-chmod 655 /home/sol1004/logs/*
-chmod 700 /home/sol1004/playlists
-chmod 755 /home/sol1004/playlists/*
-chmod 755 /home/sol1004/tmp
-chmod 700 /home/sol1004/tracks
-chmod 755 /home/sol1004/tracks/*
 
 # Configure the sol1004 user environment and disable tracker
 echo 'PATH=/usr/java/default/bin:$PATH:$HOME/bin

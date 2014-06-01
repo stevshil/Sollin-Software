@@ -17,7 +17,7 @@ bootloader --location=mbr --driveorder=sda --append=" LANG=en_US.UTF-8 SYSFONT=l
 user --name=sol1004 --gecos="Media System" --homedir=/home/sol1004 --password="$6$an1JYFKL$BFgYFtThEkaXOmCemNDWB7jvQcunNKY5szlQF25bfE5icM8ap8EtoINBZvEpciCOgD1Z8v3W3IUq/spjhfz1m1" --iscrypted --shell=/bin/bash --uid=500 --groups=uucp,lock,dialout,pulse,audio,pulse-access
 
 clearpart --all --initlabel
-part / --fstype=ext3 --size=14000 --asprimary
+part / --fstype=ext3 --grow --asprimary
 part swap --size=512 --asprimary
 part /home --fstype=ext3 --grow --asprimary
 
@@ -1264,7 +1264,7 @@ chown root:root /etc/asound.state
 chmod 644 /etc/asound.state
 
 # Configure the sol1004 user environment and disable tracker
-echo "PATH=/usr/java/default/bin:$PATH:$HOME/bin
+echo 'PATH=/usr/java/default/bin:$PATH:$HOME/bin
 JAVA_HOME=/usr/java/default/bin/java
 CLASSPATH=.
 LD_LIBRARY_PATH=/usr/lib/rxtx
@@ -1281,14 +1281,14 @@ fi
 /usr/bin/gsettings set org.gnome.desktop.background picture-uri file:///home/sol1004/Sollin_desktop.bmp
 /usr/bin/gsettings set org.gnome.desktop.screensaver lock-enabled false
 /usr/bin/gsettings set org.gnome.desktop.lockdown disable-lock-screen true
-/usr/bin/gsettings set org.gnome.settings-daemon.plugins.power button-power 'shutdown'
+/usr/bin/gsettings set org.gnome.settings-daemon.plugins.power button-power "shutdown"
 /usr/bin/gsettings set org.gnome.desktop.screensaver idle-activation-enabled false
 /usr/bin/gsettings set org.gnome.desktop.session idle-delay 0
 
 # Set the sound level for the relevant alsa file
 alsactl restore -f /etc/asound.state
 
-export PATH JAVA_HOME LD_LIBRARY_PATH CLASSPATH" >>/home/sol1004/.bash_profile
+export PATH JAVA_HOME LD_LIBRARY_PATH CLASSPATH' >>/home/sol1004/.bash_profile
 
 # Set java sound properties
 echo "javax.sound.sampled.Clip=org.classpath.icedtea.pulseaudio.PulseAudioMixerProvider

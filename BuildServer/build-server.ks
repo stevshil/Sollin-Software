@@ -1082,8 +1082,8 @@ black=
 chmod 640 /etc/lxdm/lxdm.conf
 chown root:root /etc/lxdm/lxdm.conf
 
-mkdir /home/sol1004/autostart
-chown sol1004:sol1004 /home/sol1004/autostart
+mkdir -p /home/sol1004/.config/autostart
+chown sol1004:sol1004 /home/sol1004/.config/utostart
 
 echo '[Desktop Entry]
 Type=Application

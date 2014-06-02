@@ -1063,25 +1063,23 @@ guest ok = yes
 guest account = nobody
 
 [builds]
-        comment = Sollin Build Directory
-        path = /builds
-        read only = no
-        browseable = yes
-        guest ok = yes
-        public = yes' >/etc/samba/smb.conf
+comment = Sollin Build Directory
+path = /builds
+read only = no
+browseable = yes
+guest ok = yes
+public = yes' >/etc/samba/smb.conf
 
 # Set Network Address
-echo "TYPE=Ethernet
+echo 'TYPE=Ethernet
 BOOTPROTO=none
 DEFROUTE=no
 IPV4_FAILURE_FATAL=no
 IPV6INIT=no
 NAME=enp0s3
 ONBOOT=yes
-PEERDNS=no
-PEERROUTES=yes
 IPADDR0=192.168.10.30
-NETMASK0=255.255.255.0" >/etc/sysconfig/network-scripts/ifcfg-enp0s3
+NETMASK0=255.255.255.0' >/etc/sysconfig/network-scripts/ifcfg-enp0s3
 
 # Make sol1004 sudo administrator
 echo "sol1004 ALL=(ALL)	ALL" >>/etc/sudoers

@@ -1038,12 +1038,13 @@ tzdata-java
 
 %post
 
+mkdir -p /etc/acpi/actions
 # Set power button no delay shutdown
 echo "PATH=/sbin:/usr/sbin:/bin:/usr/bin
 shutdown -h now" >/etc/acpi/actions/power.sh
 
 # Add NFS mount to /etc/fstab
-echo "192.168.1.30:/builds /builds nfs defaults 0 0" >>/etc/fstab
+echo "192.168.13.30:/builds /builds nfs defaults 0 0" >>/etc/fstab
 
 # Set Network Address
 echo "TYPE=Ethernet
@@ -1055,7 +1056,7 @@ NAME=enp0s3
 ONBOOT=yes
 PEERDNS=no
 PEERROUTES=yes
-IPADDR=192.168.10.80
+IPADDR=192.168.13.31
 NETMASK=255.255.255.0" >/etc/sysconfig/network-scripts/ifcfg-enp0s3
 
 # Make sol1004 sudo administrator
@@ -1122,26 +1123,15 @@ chown sol1004:sol1004 /home/sol1004/Desktop
 
 # Disable unnecessary services
 chkconfig NetworkManager off
-chkconfig ipsec off
 chkconfig lvm2-monitor off
 chkconfig mdmonitor off
-chkconfig netfs off
 chkconfig network on
 chkconfig nfslock off
-chkconfig pcscd off
-chkconfig sendmail off
 chkconfig cups off
-chkconfig abrt-ccpp off
-chkconfig abrt-oops off
-chkconfig abrt-uefioops off
-chkconfig abrt-vmcore off
-chkconfig abrt-xorg off
-chkconfig abrtd off
 chkconfig bluetooth off
 chkconfig iscsi off
 chkconfig iscsid off
 chkconfig iscsiuio off
-chkconfig libvirtd off
 chkconfig lvm2-lvmetad off
 chkconfig vmtoolsd off
 

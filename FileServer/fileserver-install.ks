@@ -1038,8 +1038,9 @@ system-config-samba
 samba
 %end
 
-%post
+%post --log=/home/sol1004/post-log.txt --erroronfail
 
+mkdir -p /etc/acpi/actions
 # Set power button no delay shutdown
 echo "PATH=/sbin:/usr/sbin:/bin:/usr/bin
 shutdown -h now" >/etc/acpi/actions/power.sh
@@ -1053,7 +1054,7 @@ chown sol1004:sol1004 /builds
 echo '/builds	*(rw)' >/etc/exports
 
 # Add Samba configuration
-ehco '[global]
+echo '[global]
 workgroup = WORKGROUP
 server string = Sollin Samba Server
 log file = /var/log/samba/log.%m
@@ -1078,7 +1079,7 @@ IPV4_FAILURE_FATAL=no
 IPV6INIT=no
 NAME=enp0s3
 ONBOOT=yes
-IPADDR0=192.168.10.30
+IPADDR0=192.168.13.30
 NETMASK0=255.255.255.0' >/etc/sysconfig/network-scripts/ifcfg-enp0s3
 
 # Make sol1004 sudo administrator
@@ -1105,7 +1106,7 @@ black=
 chmod 640 /etc/lxdm/lxdm.conf
 chown root:root /etc/lxdm/lxdm.conf
 
-mkdir /home/sol1004/.config/autostart
+mkdir -p /home/sol1004/.config/autostart
 chown sol1004:sol1004 /home/sol1004/.config/autostart
 
 echo '[Desktop Entry]
@@ -1145,26 +1146,15 @@ chown sol1004:sol1004 /home/sol1004/Desktop
 
 # Disable unnecessary services
 chkconfig NetworkManager off
-chkconfig ipsec off
 chkconfig lvm2-monitor off
 chkconfig mdmonitor off
-chkconfig netfs off
 chkconfig network on
 chkconfig nfslock off
-chkconfig pcscd off
-chkconfig sendmail off
 chkconfig cups off
-chkconfig abrt-ccpp off
-chkconfig abrt-oops off
-chkconfig abrt-uefioops off
-chkconfig abrt-vmcore off
-chkconfig abrt-xorg off
-chkconfig abrtd off
 chkconfig bluetooth off
 chkconfig iscsi off
 chkconfig iscsid off
 chkconfig iscsiuio off
-chkconfig libvirtd off
 chkconfig lvm2-lvmetad off
 chkconfig vmtoolsd off
 chkconfig smb on

@@ -1165,8 +1165,9 @@ mount -t iso9660 /dev/sr0 /tmp/mycd
 
 # Add the .config configuration files
 cp -rf /tmp/mycd/home/sol1004/.config /home/sol1004/
+cp -f /tmp/mycd/home/sol1004/Sollin_desktop.bmp /home/sol1004/
 cp -f /tmp/mycd/home/sol1004/.xscreensaver /home/sol1004/
-chown sol1004:sol1004 /home/sol1004/.xscreensaver
+chown -R sol1004:sol1004 /home/sol1004
 
 # Configure sol1004 home directory and application
 chown -R sol1004:sol1004 /home/sol1004

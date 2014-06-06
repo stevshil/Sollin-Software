@@ -1044,19 +1044,19 @@ echo "PATH=/sbin:/usr/sbin:/bin:/usr/bin
 shutdown -h now" >/etc/acpi/actions/power.sh
 
 # Add NFS mount to /etc/fstab
-echo "192.168.13.30:/builds /builds nfs defaults 0 0" >>/etc/fstab
+echo "192.168.13.150:/builds /builds nfs defaults 0 0" >>/etc/fstab
 
 # Set Network Address
 echo "TYPE=Ethernet
+DEVICE=p2p1
+NOZEROCONF=yes
 BOOTPROTO=none
+NM_CONTROLLED=no
 DEFROUTE=no
 IPV4_FAILURE_FATAL=no
 IPV6INIT=no
-NAME=enp0s3
 ONBOOT=yes
-PEERDNS=no
-PEERROUTES=yes
-IPADDR=192.168.13.31
+IPADDR=192.168.13.151
 NETMASK=255.255.255.0" >/etc/sysconfig/network-scripts/ifcfg-enp0s3
 
 # Make sol1004 sudo administrator
@@ -1142,7 +1142,8 @@ mount -t iso9660 /dev/sr0 /tmp/mycd
 # Add the .config configuration files
 cp -rf /tmp/mycd/home/sol1004/.config /home/sol1004/
 cp -f /tmp/mycd/home/sol1004/.xscreensaver /home/sol1004/
-chown sol1004:sol1004 /home/sol1004/.xscreensaver
+cp -f /tmp/mycd/home/sol1004/Sollin_desktop.bmp /home/sol1004/
+chown -R sol1004:sol1004 /home/sol1004
 
 cp -r /tmp/mycd/home/sol1004/DVD-Creator2 /home/sol1004
 chown -R sol1004:sol1004 /home/sol1004/

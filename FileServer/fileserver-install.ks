@@ -1073,14 +1073,15 @@ public = yes' >/etc/samba/smb.conf
 
 # Set Network Address
 echo 'TYPE=Ethernet
+DEVICE=p2p1
 BOOTPROTO=none
-DEFROUTE=no
 IPV4_FAILURE_FATAL=no
 IPV6INIT=no
-NAME=enp0s3
 ONBOOT=yes
-IPADDR0=192.168.13.30
-NETMASK0=255.255.255.0' >/etc/sysconfig/network-scripts/ifcfg-enp0s3
+NOZEROCONF=yes
+NM_CONTROLLED="no"
+IPADDR=192.168.13.150
+NETMASK=255.255.255.0' >/etc/sysconfig/network-scripts/ifcfg-enp0s3
 
 # Make sol1004 sudo administrator
 echo "sol1004 ALL=(ALL)	ALL" >>/etc/sudoers
@@ -1145,7 +1146,7 @@ mkdir -p /home/sol1004/Desktop
 chown sol1004:sol1004 /home/sol1004/Desktop
 
 # Disable unnecessary services
-chkconfig NetworkManager off
+chkconfig NetworkManager on
 chkconfig lvm2-monitor off
 chkconfig mdmonitor off
 chkconfig network on

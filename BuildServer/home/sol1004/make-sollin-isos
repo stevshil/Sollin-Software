@@ -14,7 +14,7 @@ do
 	cp -r $builddir/* .
 	cd $WORKINGDIR
 
-	if [ $1 == "new" ]
+	if [ "$1" == "new" ]
 	then
 		if [ ! -e $builddir/cli-options.txt ]
 		then
@@ -47,7 +47,7 @@ do
 		unset IP NM GW NS net sound tzname isoname
 	else
 		# Build update DVD
-		OUTPUTDIR=$HOME/Sollin/ISOs
+		OUTPUTDIR=$HOME/ISOs
 		BUILDDIR=$HOME/Sollin/Sollin-Software/Update-CD
 		cd $BUILDDIR
 		mkisofs -o $OUTPUTDIR/${isoname}-update.iso -joliet-long -J -R -V "Sollin Update Disk" .

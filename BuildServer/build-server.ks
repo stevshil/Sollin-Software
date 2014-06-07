@@ -1121,6 +1121,9 @@ Comment=
 mkdir -p /home/sol1004/Desktop
 chown sol1004:sol1004 /home/sol1004/Desktop
 
+# ISOs folder for scripts
+mkdir /home/sol1004/ISOs
+
 # Disable unnecessary services
 chkconfig NetworkManager off
 chkconfig lvm2-monitor off

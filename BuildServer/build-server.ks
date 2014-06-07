@@ -1149,6 +1149,7 @@ cp -f /tmp/mycd/home/sol1004/Sollin_desktop.bmp /home/sol1004/
 chown -R sol1004:sol1004 /home/sol1004
 
 cp -r /tmp/mycd/home/sol1004/DVD-Creator2 /home/sol1004
+cp -r /tmp/mycd/home/sol1004/Update-CD
 chown -R sol1004:sol1004 /home/sol1004/
 
 cp /usr/lib/jvm/java-1.7.0-openjdk-1.7.0.25.x86_64/jre/lib/i386/libpulse-java.so /usr/java/jre1.6.0_20/lib/i386/libpulse-java.so

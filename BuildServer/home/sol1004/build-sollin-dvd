@@ -1,7 +1,7 @@
 #!/bin/bash
 
-BUILDDIR=$HOME/Sollin/Sollin-Software/DVD-Creator2
-OUTPUTDIR=$HOME/Sollin/ISOs
+BUILDDIR=$HOME/DVD-Creator2
+OUTPUTDIR=$HOME/ISOs
 PARTROOT="part / --fstype=ext3 --size=20000 --asprimary"
 PARTSWAP="part swap --size=20000 --asprimary"
 
@@ -99,4 +99,3 @@ cd ..
 cp isolinux-recover.cfg $DVDDIR/isolinux/isolinux.cfg
 cd $DVDDIR
 mkisofs -o $OUTPUTDIR/${isoname}-recovery.iso -b isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot -boot-load-size 4 -joliet-long -boot-info-table -J -R -V "Sollin Recovery Disk" .
-fi

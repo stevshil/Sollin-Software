@@ -4,7 +4,7 @@ if [ "$1" == "new" ]
 then
 	WORKINGDIR=/home/sol1004/DVD-Creator2
 else
-	WORKINGDIR=/home/sol1004/Update-CD
+	WORKINGDIR=/home/sol1004/DVD-Creator2/Update-CD
 fi
 cd $WORKINGDIR
 

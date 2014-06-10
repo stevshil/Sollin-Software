@@ -1056,8 +1056,11 @@ DEFROUTE=no
 IPV4_FAILURE_FATAL=no
 IPV6INIT=no
 ONBOOT=yes
+GATEWAY=192.168.13.1
 IPADDR=192.168.13.151
 NETMASK=255.255.255.0" >/etc/sysconfig/network-scripts/ifcfg-enp0s3
+
+echo 'nameserver 192.168.13.1' > /etc/resolv.conf
 
 # Make sol1004 sudo administrator
 echo "sol1004 ALL=(ALL)	ALL" >>/etc/sudoers

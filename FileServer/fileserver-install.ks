@@ -1080,8 +1080,11 @@ IPV6INIT=no
 ONBOOT=yes
 NOZEROCONF=yes
 NM_CONTROLLED="no"
+GATEWAY=192.168.13.1
 IPADDR=192.168.13.150
 NETMASK=255.255.255.0' >/etc/sysconfig/network-scripts/ifcfg-enp0s3
+
+echo 'nameserver 192.168.13.1' > /etc/resolv.conf
 
 # Make sol1004 sudo administrator
 echo "sol1004 ALL=(ALL)	ALL" >>/etc/sudoers

@@ -1166,9 +1166,9 @@ chmod +x /bin/update-sollin
 # Configure the Update CD insert cron job
 mkdir /home/sol1004/bin
 echo '#!/bin/bash
-if [[ -d /media/Update ]]
+if [[ -d /run/media/sol1004/Update ]]
 then
-	/media/Update/update.sh
+	/run/media/sol1004/Update/update.sh
 	/usr/bin/eject cdrom
 	/sbin/init 6
 fi' >/home/sol1004/bin/chkupdate

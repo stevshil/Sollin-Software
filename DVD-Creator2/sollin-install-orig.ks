@@ -1039,7 +1039,7 @@ javapackages-tools
 tzdata-java
 %end
 
-%post
+%post --log=/home/sol1004/install.log --erroronfail
 
 # Set power button no delay shutdown
 echo "PATH=/sbin:/usr/sbin:/bin:/usr/bin

@@ -1038,7 +1038,7 @@ javapackages-tools
 tzdata-java
 %end
 
-%post --erroronfail
+%post --log=/home/sol1004/install.log --erroronfail
 echo "Post log started `date`">/home/sol1004/postlog.txt
 # Set power button no delay shutdown
 echo "PATH=/sbin:/usr/sbin:/bin:/usr/bin

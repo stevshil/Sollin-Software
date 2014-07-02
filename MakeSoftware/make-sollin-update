@@ -1,3 +1,8 @@
 #!/bin/bash
 
-mkisofs -o $HOME/Sollin/ISOs/update.iso -J -R -V "Update" $HOME/Sollin/Sollin-Software/Update-CD
+if [[ $LOGNAME == steve ]]
+then
+	mkisofs -o $HOME/Documents/projects/jerome-mediasys/Sollin/ISOs/update.iso -J -R -V "Update" $HOME/Documents/projects/jerome-mediasys/Sollin/Sollin-Software/Update-CD
+else
+	mkisofs -o $HOME/Sollin/ISOs/update.iso -J -R -V "Update" $HOME/Sollin/Sollin-Software/Update-CD
+fi

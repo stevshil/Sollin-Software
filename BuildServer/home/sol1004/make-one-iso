@@ -60,7 +60,7 @@ do
 		OUTPUTDIR=$HOME/ISOs
 		BUILDDIR=$WORKINGDIR
 		cd $BUILDDIR
-		mkisofs -o $OUTPUTDIR/${isoname}-update.iso -joliet-long -J -R -V "Sollin Update Disk" .
+		mkisofs -o $OUTPUTDIR/${isoname}-update.iso -joliet-long -J -R -V "Update" .
 		unset isoname
 	fi
 done

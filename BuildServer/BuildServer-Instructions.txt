@@ -1,0 +1,115 @@
+Setting Up The Build Server
+
+1. The server is configured to listen and work on 192.168.13.151
+	- it uses 192.168.13.1 as its router to talk to the internet.
+	- You may need to change the DNS server in /etc/resolv.conf 
+		- currently uses 192.168.13.1
+
+2. The sol1004 user automatically logs in at boot time
+	- A GUI is presented so that you can manage the system if required
+
+3. The /builds directory is mounted during start up
+	- File Server must have completed its start up first
+	- The system uses /builds to create the ISO images and Update DVD images
+
+4. /builds must contain directories for each ISO image you wish to build
+	- Each directory will be used in turn by the make-sollin-isos script
+	- Each directory should contain what you want in the /home/sol1004 directory of a system, or for the Update CD
+		e.g. playlists, tracks, etc
+
+5. In the /home/sol1004/DVD-Creator2 directory you will find the following;
+	- build-sollin-dvd
+		A modified version of the original script to work with new scripts
+	- make-sollin-isos
+		The script that will build multiple ISOs in /home/sol1004/ISOs directory
+		Builds either new build DVD or Update CD
+	- make-one-iso
+		You specify which directory you wish to build from /builds
+
+6. You should run the scripts from within the DVD-Creator2 directory as shown in the examples below
+
+Using the make-sollin-isos Script
+0. This script will build Install/Recovery ISOs or Update ISOs for each directory in the /builds directory
+
+1. Command line arguments
+	- Only 1 argument;
+		- new		= will build new install/recovery ISO images
+		- No argument	= build Update CDs
+
+2. Since the script needs to be automated you need some answer files in each of the directories for an Install or Recovery DVD within /builds, e.g. /builds/company1/cli-options.txt or /builds/company1/NSfile
+	- The cli-options.txt file
+		- This is what you would normally have typed in to the build-sollin-dvd script at the command line.  Instead now you need to place these inside the cli-options.txt file.  So inside the /builds/company1/cli-options.txt file you might have;
+		net=dhcp
+		sound=Intel
+		tzname=Europe/London
+
+		- One file per company, so you might want to store these options files for each of your companies
+
+	- NSfile contains static network information where dhcp or nonet is not being used. The content of a file for company1, e.g. /builds/company1/NSfile might be;
+		IP=192.168.11.1
+		NM=255.255.255.0
+		GW=192.168.11.254
+		NS=192.168.11.254
+	- Where NM is netmask, GW is gateway and NS is the DNS nameserver
+
+EXAMPLE 1
+	- Creating an Install/Recovery DVD set with dhcp
+		- Ensure each customer directory has a cli-options.txt file
+			net=dhcp
+			sound=Intel
+			tzname=Europe/London
+		- Run the make-sollin-isos (from within DVD-Creator2)
+			./make-sollin-isos new
+		- ISOs will be in /home/sol1004/ISOs
+			- Each named after the directory in /builds
+
+EXAMPLE 2
+	-Creating an Install/Recovery DVD with static IP
+		- Ensure each customer directory has a cli-options.txt file
+			net=dhcp
+			sound=Intel
+			tzname=Europe/London
+		- Ensure each customer has an NSfile with require IP config
+			IP=192.168.11.1
+			NM=255.255.255.0
+			GW=192.168.11.254
+			NS=192.168.11.254
+		- Run the make-sollin-isos (from within DVD-Creator2)
+			./make-sollin-isos new
+		- ISOs will be in /home/sol1004/ISOs
+			- Each named after the directory in /builds
+
+EXAMPLE 3
+	- Creating an Update CD
+		- Run the make-sollin-isos command with no arguments
+			./make-sollin-isos
+		- ISOs will be in /home/sol1004/ISOs
+			- Each named after the directory in /builds
+			- They will contain -update in the filename
+
+NOTE:
+	You can mix and match between static, dhcp and nonet by what is specified in the cli-options.txt file.  e.g if net=dhcp or net=nonet in your cli-options.txt then you don't need an NSfile.
+	Each customer may require different settings, so hence it is worth while retaining these 1 or 2 files for each customer, save having to create them each time.
+
+
+Using the make-one-iso Script
+0. This script will allow you to build only 1 DVD of either Install/Recovery or Update.  This command has 2 argumens, and requires the same config files cli-options.txt and/or NSfile if building new builds (but only for the Recovery/Install DVD)
+
+1. Running the script to create an Install or Recovery ISO
+	- Ensure you have a cli-options.txt file
+	- If you are using static networking you will also need an NSfile
+	- Running the make-one-iso script
+		./make-one-iso new company1
+	- NOTE: a 2nd argument is required for this command which is the directory name inside /builds
+		- ISOs will be in /home/sol1004/ISOs
+			- Each named after the directory in /builds
+
+2. Running the script to create an Update CD
+	- Simply run the script, but the 1st argument must NOT be new;
+		./make-one-iso update company1
+
+
+
+NOTE: Do NOT run the build-sollin-dvd script, this must be called by either;
+	- make-sollin-isos
+	- make-one-iso

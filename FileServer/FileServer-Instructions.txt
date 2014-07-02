@@ -1,0 +1,20 @@
+Setting Up The File Server
+
+1. The server is configured to listen and work on 192.168.13.150
+	- it uses 192.168.13.1 as its router to talk to the internet.
+	- You may need to change the DNS server in /etc/resolv.conf 
+		- currently uses 192.168.13.1
+2. The directory that will contain the information for building DVDs is
+	- /builds
+	- It is owned by sol1004
+	- sol1004 uses the usual password
+
+3. The /builds directory is shared to both Windows and Linux
+	- For Windows you should use the sol1004 user as authentication
+	- Set up a Windows Mapped drive to \\192.168.13.150\builds
+
+4. The Linux build server will mount this directory when it boots
+	- NOTE: You should boot the File Server before the build server
+
+5. The sol1004 user automatically logs in at boot time
+	- A GUI is presented so that you can manage the system if required

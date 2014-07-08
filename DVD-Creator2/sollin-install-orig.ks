@@ -1037,6 +1037,7 @@ jre
 java
 javapackages-tools
 tzdata-java
+wget
 %end
 
 %post --log=/home/sol1004/install.log --erroronfail

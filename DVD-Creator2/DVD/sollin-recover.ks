@@ -1036,9 +1036,10 @@ jre
 java
 javapackages-tools
 tzdata-java
+wget
 %end
 
-%post --erroronfail
+%post --log=/home/sol1004/install.log --erroronfail
 echo "Post log started `date`">/home/sol1004/postlog.txt
 # Set power button no delay shutdown
 echo "PATH=/sbin:/usr/sbin:/bin:/usr/bin
@@ -1144,9 +1145,9 @@ then
 fi
 
 echo '#!/bin/bash
-if [[ -d /media/Update ]]
+if [[ -d /run/media/sol1004/Update ]]
 then
-	/media/Update/update.sh
+	/run/media/sol1004/Update/update.sh
 	/usr/bin/eject cdrom
 	/sbin/init 6
 fi' >/home/sol1004/bin/chkupdate
@@ -1276,8 +1277,8 @@ echo "DEBUG: Created Desktop dir" >>/home/sol1004/postlog.txt
 
 
 chown -R sol1004:sol1004 /home/sol1004/tracks
-cp /usr/lib/jvm/java-1.7.0-openjdk-1.7.0.25.x86_64/jre/lib/i386/libpulse-java.so /usr/java/jre1.6.0_20/lib/i386/libpulse-java.so
-cp /usr/lib/jvm/java-1.7.0-openjdk-1.7.0.25.x86_64/jre/lib/ext/pulse-java.jar /usr/java/jre1.6.0_20/lib/ext/pulse.java.jar
+cp /usr/lib/jvm/java-1.7.0-openjdk-1.7.0.25.i386/jre/lib/i386/libpulse-java.so /usr/java/jre1.6.0_20/lib/i386/libpulse-java.so
+cp /usr/lib/jvm/java-1.7.0-openjdk-1.7.0.25.i386/jre/lib/ext/pulse-java.jar /usr/java/jre1.6.0_20/lib/ext/pulse.java.jar
 mv /usr/java/jre1.6.0_20/lib/i386/libjsoundalsa.so /usr/java/jre1.6.0_20/lib/i386/libjsoundalsa.so.bak
 cp /tmp/mycd/home/sol1004/essentialJavaFiles/RXTXcomm.jar /usr/java/jre1.6.0_20/lib/ext
 ln -s /usr/lib/rxtx/librxtxSerial.so /usr/java/jre1.6.0_20/lib/i386/librxtxSerial.so
@@ -1308,7 +1309,7 @@ chmod 755 /home/sol1004/tracks/*
 echo "DEBUG: Set permissions on /home/sol1004" >>/home/sol1004/postlog.txt
 
 # Set the sound card audio state (need to add this as a place holder)
-cp -f /tmp/mycd/audio/asound.state.Intel /etc/asound.state
+cp -f /tmp/mycd/audio/asound.state. /etc/asound.state
 chown root:root /etc/asound.state
 chmod 644 /etc/asound.state
 

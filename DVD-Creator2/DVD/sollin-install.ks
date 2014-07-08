@@ -17,7 +17,7 @@ bootloader --location=mbr --driveorder=sda --append=" LANG=en_US.UTF-8 SYSFONT=l
 user --name=sol1004 --gecos="Media System" --homedir=/home/sol1004 --password="$6$an1JYFKL$BFgYFtThEkaXOmCemNDWB7jvQcunNKY5szlQF25bfE5icM8ap8EtoINBZvEpciCOgD1Z8v3W3IUq/spjhfz1m1" --iscrypted --shell=/bin/bash --uid=500 --groups=uucp,lock,dialout,pulse,audio,pulse-access
 
 clearpart --all --initlabel
-part / --fstype=ext3 --grow --asprimary
+part / --fstype=ext3 --size=14000 --asprimary
 part swap --size=512 --asprimary
 part /home --fstype=ext3 --grow --asprimary
 
@@ -1037,20 +1037,14 @@ jre
 java
 javapackages-tools
 tzdata-java
+wget
 %end
 
-%post
+%post --log=/home/sol1004/install.log --erroronfail
 
 # Set power button no delay shutdown
 echo "PATH=/sbin:/usr/sbin:/bin:/usr/bin
 shutdown -h now" >/etc/acpi/actions/power.sh
-
-# Enable sol1004 automatic logon
-echo "# gdm automatic login configuration
-[daemon]
-AutomaticLoginEnable=true
-AutomaticLogin=sol1004
-">>/etc/gdm/custom.conf
 
 # Set DHCP timeout if cable not connected
 echo "timeout 60
@@ -1067,11 +1061,6 @@ retry 60;" >>/etc/dhclient-eth0.conf
 echo "sol1004 ALL=(ALL)	ALL" >>/etc/sudoers
 echo "sol1004 ALL=	NOPASSWD: /bin/update-sollin" >>/etc/sudoers
 echo "sol1004 ALL=	NOPASSWD: /home/sol1004/bin/chkupdate" >>/etc/sudoers
-
-# Add the .config configuration files
-cp -rf /tmp/mycd/home/sol1004/.config /home/sol1004/
-cp -f /tmp/mycd/home/sol1004/.xscreensaver /home/sol1004/
-chown sol1004:sol1004 /home/sol1004/.xscreensaver
 
 # Set autologon
 echo "[base]
@@ -1093,56 +1082,6 @@ black=
 ">/etc/lxdm/lxdm.conf
 chmod 640 /etc/lxdm/lxdm.conf
 chown root:root /etc/lxdm/lxdm.conf
-
-# Set the sollin player to start on log in
-mkdir -p /home/sol1004/.config/autostart
-chown -R sol1004:sol1004 /home/sol1004/.config
-echo '[Desktop Entry]
-Type=Application
-Exec=/usr/bin/java -Xincgc -Dlog4j.configuration=file:///home/sol1004/conf/log4j.xml -jar /home/sol1004/LCDClient.jar
-#Exec=/usr/java/default/bin/java -Xincgc -Dlog4j.configuration=file:///home/sol1004/conf/log4j.xml -jar /home/sol1004/LCDClient.jar
-Hidden=false
-X-GNOME-Autostart-enabled=true
-Name[en_GB]=Music Player
-Name=Music Player
-Comment[en_GB]=
-Comment=
-'>/home/sol1004/.config/autostart/LCDClient.jar.desktop
-
-#echo '[Desktop Entry]
-#Type=Application
-#Exec=/opt/teamviewer/teamviewer/6/bin/teamviewer
-#Hidden=false
-#X-GNOME-Autostart-enabled=true
-#Name[en_GB]=TeamViewer
-#Name=TeamViewer
-#Comment[en_GB]=
-#Comment=
-#'>/home/sol1004/.config/autostart/TeamViewer.desktop
-
-echo '[Desktop Entry]
-Type=Application
-Exec=/usr/bin/xset s off; /usr/bin/xset -dpms
-Hidden=true
-X-GNOME-Autostart-enabled=true
-Name[en_GB]=Disable X Screensaver
-Name=Disable X Screensaver
-'>/home/sol1004/.config/autostart/DisableScreen.desktop
-
-# Set the desktop to the sollin background
-echo '[Desktop Entry]
-Type=Application
-Exec=/usr/bin/gsettings set org.gnome.desktop.background picture-uri file:///home/sol1004/Sollin_desktop.bmp
-Hidden=true
-X-GNOME-Autostart-enabled=true
-Name=Background
-Comment[en_GB]=BackgroundSetting
-Comment=
-'>/home/sol1004/.config/autostart/Background.desktop
-
-# Set desktop directory for sol1004
-mkdir -p /home/sol1004/Desktop
-chown sol1004:sol1004 /home/sol1004/Desktop
 
 # Configure ftp connectivity
 echo 'machine ftp.sollin.co.uk login oneftp password oneftp2011' >/root/.netrc
@@ -1173,9 +1112,9 @@ chmod +x /bin/update-sollin
 # Configure the Update CD insert cron job
 mkdir /home/sol1004/bin
 echo '#!/bin/bash
-if [[ -d /media/Update ]]
+if [[ -d /run/media/sol1004/Update ]]
 then
-	/media/Update/update.sh
+	/run/media/sol1004/Update/update.sh
 	/usr/bin/eject cdrom
 	/sbin/init 6
 fi' >/home/sol1004/bin/chkupdate
@@ -1228,14 +1167,70 @@ chkconfig vmtoolsd off
 # Set up the LCD device and sound card for java
 mkdir /tmp/mycd
 mount -t iso9660 /dev/sr0 /tmp/mycd
+# Add the .config configuration files
 cp -r /tmp/mycd/home/sol1004 /home
+#cp -rf /tmp/mycd/home/sol1004/.config /home/sol1004/
+#cp -f /tmp/mycd/home/sol1004/.xscreensaver /home/sol1004/
+chown sol1004:sol1004 /home/sol1004/.xscreensaver
+
 chown -R sol1004:sol1004 /home/sol1004/tracks
-cp /usr/lib/jvm/java-1.7.0-openjdk-1.7.0.25.x86_64/jre/lib/i386/libpulse-java.so /usr/java/jre1.6.0_20/lib/i386/libpulse-java.so
-cp /usr/lib/jvm/java-1.7.0-openjdk-1.7.0.25.x86_64/jre/lib/ext/pulse-java.jar /usr/java/jre1.6.0_20/lib/ext/pulse.java.jar
+cp /usr/lib/jvm/java-1.7.0-openjdk-1.7.0.25.i386/jre/lib/i386/libpulse-java.so /usr/java/jre1.6.0_20/lib/i386/libpulse-java.so
+cp /usr/lib/jvm/java-1.7.0-openjdk-1.7.0.25.i386/jre/lib/ext/pulse-java.jar /usr/java/jre1.6.0_20/lib/ext/pulse.java.jar
 mv /usr/java/jre1.6.0_20/lib/i386/libjsoundalsa.so /usr/java/jre1.6.0_20/lib/i386/libjsoundalsa.so.bak
 cp /tmp/mycd/home/sol1004/essentialJavaFiles/RXTXcomm.jar /usr/java/jre1.6.0_20/lib/ext
 ln -s /usr/lib/rxtx/librxtxSerial.so /usr/java/jre1.6.0_20/lib/i386/librxtxSerial.so
 chown root:root /usr/java/jre1.6.0_20/lib/i386/librxtxSerial.so /usr/java/jre1.6.0_20/lib/ext/RXTXcomm.jar
+
+# Set the sollin player to start on log in
+mkdir -p /home/sol1004/.config/autostart
+chown -R sol1004:sol1004 /home/sol1004/.config
+echo '[Desktop Entry]
+Type=Application
+Exec=/usr/bin/java -Xincgc -Dlog4j.configuration=file:///home/sol1004/conf/log4j.xml -jar /home/sol1004/LCDClient.jar
+#Exec=/usr/java/default/bin/java -Xincgc -Dlog4j.configuration=file:///home/sol1004/conf/log4j.xml -jar /home/sol1004/LCDClient.jar
+Hidden=false
+X-GNOME-Autostart-enabled=true
+Name[en_GB]=Music Player
+Name=Music Player
+Comment[en_GB]=
+Comment=
+'>/home/sol1004/.config/autostart/LCDClient.jar.desktop
+
+#echo '[Desktop Entry]
+#Type=Application
+#Exec=/opt/teamviewer/teamviewer/6/bin/teamviewer
+#Hidden=false
+#X-GNOME-Autostart-enabled=true
+#Name[en_GB]=TeamViewer
+#Name=TeamViewer
+#Comment[en_GB]=
+#Comment=
+#'>/home/sol1004/.config/autostart/TeamViewer.desktop
+
+echo '[Desktop Entry]
+Type=Application
+Exec=/usr/bin/xset s off; /usr/bin/xset -dpms
+Hidden=true
+X-GNOME-Autostart-enabled=true
+Name[en_GB]=Disable X Screensaver
+Name=Disable X Screensaver
+'>/home/sol1004/.config/autostart/DisableScreen.desktop
+
+# Set the desktop to the sollin background
+echo '[Desktop Entry]
+Type=Application
+Exec=/usr/bin/gsettings set org.gnome.desktop.background picture-uri file:///home/sol1004/Sollin_desktop.bmp
+Hidden=true
+X-GNOME-Autostart-enabled=true
+Name=Background
+Comment[en_GB]=BackgroundSetting
+Comment=
+'>/home/sol1004/.config/autostart/Background.desktop
+
+# Set desktop directory for sol1004
+mkdir -p /home/sol1004/Desktop
+chown sol1004:sol1004 /home/sol1004/Desktop
+
 
 # Configure sol1004 home directory and application
 chown -R sol1004:sol1004 /home/sol1004
@@ -1259,7 +1254,7 @@ chmod 755 /home/sol1004/tracks/*
 
 # Set the sound card audio state (need to add this as a place holder)
 #cp -f /tmp/mycd/home/sol1004/essentialJavaFiles/asound.state /etc
-cp -f /tmp/mycd/audio/asound.state.Intel /etc/asound.state
+cp -f /tmp/mycd/audio/asound.state. /etc/asound.state
 chown root:root /etc/asound.state
 chmod 644 /etc/asound.state
 

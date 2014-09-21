@@ -1121,7 +1121,7 @@ get LCDClient.jar
 lcd /home/sol1004/lib
 cd lib
 mget *
-cd conf
+cd ../conf
 lcd /home/sol1004/conf
 mget *
 _END_

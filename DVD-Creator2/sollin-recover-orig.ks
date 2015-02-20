@@ -751,7 +751,6 @@ gnome-keyring-pam
 ibus-libpinyin
 ibus-rawcode
 gstreamer1-plugins-good
-xscreensaver-base
 galculator
 lxrandr
 lxpolkit

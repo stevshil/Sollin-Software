@@ -23,6 +23,7 @@ part /home --fstype=ext3 --usepart sda3 --noformat
 reboot --eject
 
 %packages --ignoremissing
+acpid
 lxappearance
 libvdpau
 fros
@@ -1276,8 +1277,8 @@ echo "DEBUG: Created Desktop dir" >>/home/sol1004/postlog.txt
 
 
 chown -R sol1004:sol1004 /home/sol1004/tracks
-cp /usr/lib/jvm/java-1.7.0-openjdk-1.7.0.25.i386/jre/lib/i386/libpulse-java.so /usr/java/jre1.6.0_20/lib/i386/libpulse-java.so
-cp /usr/lib/jvm/java-1.7.0-openjdk-1.7.0.25.i386/jre/lib/ext/pulse-java.jar /usr/java/jre1.6.0_20/lib/ext/pulse.java.jar
+cp /usr/lib/jvm/java-1.7.0-openjdk-1.7.0.*.i386/jre/lib/i386/libpulse-java.so /usr/java/jre1.6.0_20/lib/i386/libpulse-java.so
+cp /usr/lib/jvm/java-1.7.0-openjdk-1.7.0.*.i386/jre/lib/ext/pulse-java.jar /usr/java/jre1.6.0_20/lib/ext/pulse.java.jar
 mv /usr/java/jre1.6.0_20/lib/i386/libjsoundalsa.so /usr/java/jre1.6.0_20/lib/i386/libjsoundalsa.so.bak
 cp /tmp/mycd/home/sol1004/essentialJavaFiles/RXTXcomm.jar /usr/java/jre1.6.0_20/lib/ext
 ln -s /usr/lib/rxtx/librxtxSerial.so /usr/java/jre1.6.0_20/lib/i386/librxtxSerial.so
@@ -1293,7 +1294,7 @@ chmod 755 /home/sol1004/audit
 chmod 644 /home/sol1004/audit/*
 chmod 700 /home/sol1004/conf
 chmod 755 /home/sol1004/conf/*
-chmod 700 /home/sol1004/download3
+#chmod 700 /home/sol1004/download3
 chmod 755 /home/sol1004/LCDClient.jar
 chmod 700 /home/sol1004/lib
 chmod 755 /home/sol1004/lib/*

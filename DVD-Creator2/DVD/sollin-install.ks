@@ -24,6 +24,7 @@ part /home --fstype=ext3 --grow --asprimary
 reboot --eject
 
 %packages --ignoremissing
+acpid
 lxappearance
 libvdpau
 fros
@@ -752,7 +753,6 @@ gnome-keyring-pam
 ibus-libpinyin
 ibus-rawcode
 gstreamer1-plugins-good
-xscreensaver-base
 galculator
 lxrandr
 lxpolkit
@@ -1040,6 +1040,7 @@ tzdata-java
 wget
 %end
 
+#%post --log=/home/sol1004/install.log --erroronfail --nochroot
 %post --log=/home/sol1004/install.log --erroronfail
 
 # Set power button no delay shutdown
@@ -1051,7 +1052,7 @@ echo "timeout 60
 retry 60;" >>/etc/dhclient-eth0.conf
 
 # Place holder for dns servers
-
+echo 'nameserver'>/etc/resolv.conf
 
 # Place holder for network configuration as using network in kickstart
 # forces it to ask question, rather than skip if cable is not present
@@ -1098,7 +1099,7 @@ get LCDClient.jar
 lcd /home/sol1004/lib
 cd lib
 mget *
-cd conf
+cd ../conf
 lcd /home/sol1004/conf
 mget *
 _END_
@@ -1173,9 +1174,13 @@ cp -r /tmp/mycd/home/sol1004 /home
 #cp -f /tmp/mycd/home/sol1004/.xscreensaver /home/sol1004/
 chown sol1004:sol1004 /home/sol1004/.xscreensaver
 
+echo "File systems">>/home/sol1004/install2.log
+df -h >>/home/sol1004/install2.log
+mount >>/home/sol1004/install2.log
+
 chown -R sol1004:sol1004 /home/sol1004/tracks
-cp /usr/lib/jvm/java-1.7.0-openjdk-1.7.0.25.i386/jre/lib/i386/libpulse-java.so /usr/java/jre1.6.0_20/lib/i386/libpulse-java.so
-cp /usr/lib/jvm/java-1.7.0-openjdk-1.7.0.25.i386/jre/lib/ext/pulse-java.jar /usr/java/jre1.6.0_20/lib/ext/pulse.java.jar
+cp /usr/lib/jvm/java-1.7.0-openjdk-1.7.0.*.i386/jre/lib/i386/libpulse-java.so /usr/java/jre1.6.0_20/lib/i386/libpulse-java.so
+cp /usr/lib/jvm/java-1.7.0-openjdk-1.7.0.*.i386/jre/lib/ext/pulse-java.jar /usr/java/jre1.6.0_20/lib/ext/pulse.java.jar
 mv /usr/java/jre1.6.0_20/lib/i386/libjsoundalsa.so /usr/java/jre1.6.0_20/lib/i386/libjsoundalsa.so.bak
 cp /tmp/mycd/home/sol1004/essentialJavaFiles/RXTXcomm.jar /usr/java/jre1.6.0_20/lib/ext
 ln -s /usr/lib/rxtx/librxtxSerial.so /usr/java/jre1.6.0_20/lib/i386/librxtxSerial.so
@@ -1240,7 +1245,7 @@ chmod 755 /home/sol1004/audit
 chmod 644 /home/sol1004/audit/*
 chmod 700 /home/sol1004/conf
 chmod 755 /home/sol1004/conf/*
-chmod 700 /home/sol1004/download3
+#chmod 700 /home/sol1004/download3
 chmod 755 /home/sol1004/LCDClient.jar
 chmod 700 /home/sol1004/lib
 chmod 755 /home/sol1004/lib/*
@@ -1254,7 +1259,7 @@ chmod 755 /home/sol1004/tracks/*
 
 # Set the sound card audio state (need to add this as a place holder)
 #cp -f /tmp/mycd/home/sol1004/essentialJavaFiles/asound.state /etc
-cp -f /tmp/mycd/audio/asound.state. /etc/asound.state
+cp -f /tmp/mycd/audio/asound.state.Intel /etc/asound.state
 chown root:root /etc/asound.state
 chmod 644 /etc/asound.state
 
@@ -1293,7 +1298,7 @@ javax.sound.sampled.TargetDataLine=org.classpath.icedtea.pulseaudio.PulseAudioMi
 
 #umount /tmp/mycd 
 # Since Fedora 17 the eject option in kickstart no longer works
-echo "Ejecting CD Drive"
-/usr/bin/eject /dev/sr0 && /usr/sbin/init 6
+#echo "Ejecting CD Drive"
+#/usr/bin/eject /dev/sr0 && /usr/sbin/init 6
 
 %end

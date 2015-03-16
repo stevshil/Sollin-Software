@@ -1174,10 +1174,6 @@ cp -r /tmp/mycd/home/sol1004 /home
 #cp -f /tmp/mycd/home/sol1004/.xscreensaver /home/sol1004/
 chown sol1004:sol1004 /home/sol1004/.xscreensaver
 
-echo "File systems">>/home/sol1004/install2.log
-df -h >>/home/sol1004/install2.log
-mount >>/home/sol1004/install2.log
-
 chown -R sol1004:sol1004 /home/sol1004/tracks
 cp /usr/lib/jvm/java-1.7.0-openjdk-1.7.0.*.i386/jre/lib/i386/libpulse-java.so /usr/java/jre1.6.0_20/lib/i386/libpulse-java.so
 cp /usr/lib/jvm/java-1.7.0-openjdk-1.7.0.*.i386/jre/lib/ext/pulse-java.jar /usr/java/jre1.6.0_20/lib/ext/pulse.java.jar
